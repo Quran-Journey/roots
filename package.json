@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/osamaramihafez/sheetsParsing#readme",
   "dependencies": {
-    "google-spreadsheet": "^3.2.0"
+    "express": "^4.17.2",
+    "googleapis": "^95.0.0"
   }
 }
