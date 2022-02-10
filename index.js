@@ -5,6 +5,13 @@ const creds = require("./credentials.json");
 
 const app = express();
 
+// ### Structure of the spreadsheets
+// Each surah is represented by a spreadsheet
+// Each spreadsheet contains multiple sheets
+// The first sheet contains metadata about the surah (i.e. an introduction)
+// The second sheet in the spreadsheet contains the first ayah in the surah
+// The next sheet is the next ayah and so on and so forth.
+
 app.get("/", async (req, res) => {
   const auth = new google.auth.GoogleAuth({
     keyFile: "credentials.json",
@@ -46,3 +53,5 @@ app.get("/", async (req, res) => {
 });
 
 app.listen(1377, (req, res) => console.log("running on port 1377"));
+
+
