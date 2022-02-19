@@ -20,5 +20,8 @@
     "express": "^4.17.2",
     "googleapis": "^95.0.0",
     "mongodb": "^4.3.1"
+  },
+  "prettier": {
+    "tabWidth": 2
   }
 }
