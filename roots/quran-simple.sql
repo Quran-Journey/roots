@@ -56,11 +56,14 @@ CREATE TABLE `quran_text` (
   PRIMARY KEY  (`index`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
+--- Some comments on the table below 
+--- The Unique ID is an id for each "word" and it's corresponding root letters inside of the Quran
+--- The surah_aya_id should be the Foreign key which corresponds to Surah:Ayat Number inside of the notes (kind of like the ID inside the cleaned dataset)
+
 DROP TABLE IF EXISTS `root_letters`;
 CREATE TABLE `root_letters` (
   `unique_id` int(10) NOT NULL auto_increment,
-  `surah_aya_id` text NOT NULL, 
-  `root_word_ID` text NOT NULL, 
+  `surah_aya_id` text NOT NULL, -- this should be a FK
   `arabic_word` text NOT Null, 
   `arabic_root_letters` text NOT NULL, 
   PRIMARY KEY  (`unique_id`)
