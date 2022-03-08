@@ -56,6 +56,16 @@ CREATE TABLE `quran_text` (
   PRIMARY KEY  (`index`)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
+DROP TABLE IF EXISTS `root_letters`;
+CREATE TABLE `root_letters` (
+  `unique_id` int(10) NOT NULL auto_increment,
+  `surah_aya_id` text NOT NULL, 
+  `root_word_ID` text NOT NULL, 
+  `arabic_word` text NOT Null, 
+  `arabic_root_letters` text NOT NULL, 
+  PRIMARY KEY  (`unique_id`)
+) ENGINE=MyISAM DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 
 --
 -- Dumping data for table `quran_text`
