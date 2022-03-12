@@ -1,0 +1,18 @@
+.chapterVerseInput {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.chapterVerseInput select {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.chapterInput {
+  border-radius: 5px 0px 0px 5px;
+}
+
+.verseInput {
+  border-right: 0px;
+  border-left: 0px;
+}
