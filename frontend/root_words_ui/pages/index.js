@@ -22,6 +22,8 @@ export default function Home() {
           Find the roots of every word in the quran.
         </p>
 
+        <ChapterInput></ChapterInput>
+
         <div className={styles.grid}>
           <a href="" className={styles.card}>
             <h2>Documentation &rarr;</h2>
