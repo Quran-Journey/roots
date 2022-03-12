@@ -1,25 +1,16 @@
 --- Some comments on the table below 
---- The Unique ID is an id for each "word" and it's corresponding root letters inside of the Quran
---- The surah_aya_id should be the Foreign key which corresponds to Surah:Ayat Number inside of the notes (kind of like the ID inside the cleaned dataset)
-
-CREATE TABLE IF NOT EXISTS QuranAyahs (
-    AyahID INT NOT NULL,
-    SurahNumber INT,
-    AyahNumber INT,
-    Text VARCHAR(225),
-    PRIMARY KEY (AyahID)
-);
+--- the quran_text table is defined in quran-simple.sql
 
 CREATE TABLE IF NOT EXISTS RootWords (
     RootID INT NOT NULL,
-    RootWord VARCHAR(225),
+    RootWord VARCHAR(225) NOT NULL,
     PRIMARY KEY (RootID)
 );
 
 CREATE TABLE IF NOT EXISTS ArabicWord (
     WordID INT NOT NULL,
-    Word VARCHAR(255), 
-    RootID INT,
+    Word VARCHAR(255) NOT NULL, 
+    RootID INT NOT NULL,
     PRIMARY KEY (WordID),
     FOREIGN KEY (RootID)
         REFERENCES RootWords(RootID)
@@ -32,7 +23,7 @@ CREATE TABLE IF NOT EXISTS TextToWord  (
     WordID INT NOT NULL,
     PRIMARY KEY (AyahID, WordID),
     FOREIGN KEY (AyahID)
-        REFERENCES QuranAyahs(AyahID)
+        REFERENCES quran_text("index")
         ON DELETE CASCADE
         ON UPDATE CASCADE,
 	FOREIGN KEY (WordID)
