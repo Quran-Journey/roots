@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import ChapterInput from "../components/chapterInput.js";
 
 export default function Home() {
   return (
@@ -35,25 +36,30 @@ export default function Home() {
             </p>
           </a>
 
-          <a
-            href=""
-            className={styles.card}
-          >
+          <a href="" className={styles.card}>
             <h2>Contact Us &rarr;</h2>
-            <p>Reach out to us if you have any general or development related questions.</p>
+            <p>
+              Reach out to us if you have any general or development related
+              questions.
+            </p>
           </a>
         </div>
       </main>
 
       <footer className={styles.footer}>
         <a
-          href="" // Need to add the main app url here 
+          href="" // Need to add the main app url here
           target="_blank"
           rel="noopener noreferrer"
         >
           Powered by{" "}
           <span>
-            <Image src="/qjLogo.png" alt="Quran Journey" width={80} height={80} />
+            <Image
+              src="/qjLogo.png"
+              alt="Quran Journey"
+              width={80}
+              height={80}
+            />
           </span>
         </a>
       </footer>
