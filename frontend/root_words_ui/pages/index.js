@@ -1,5 +1,5 @@
-import Head from "next/head";
-import Image from "next/image";
+import Head from "next/Head";
+import Image from "next/Image";
 import styles from "../styles/Home.module.css";
 import ChapterInput from "../components/chapterInput.js";
 
@@ -19,51 +19,37 @@ export default function Home() {
         <h1 className={styles.title}>Arabic Root Words in the Quran</h1>
 
         <p className={styles.description}>
-          Find the roots of every word in the quran.
+          Find the root of any word in the quran.
         </p>
 
         <ChapterInput></ChapterInput>
 
-        <div className={styles.grid}>
-          <a href="" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>View the source code and documentation for API endpoints.</p>
-          </a>
-
-          <a href="" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>
-              See how these root words can add a richer meaning to your
-              understanding of each verse.
-            </p>
-          </a>
-
-          <a href="" className={styles.card}>
-            <h2>Contact Us &rarr;</h2>
-            <p>
-              Reach out to us if you have any general or development related
-              questions.
-            </p>
-          </a>
-        </div>
+      
       </main>
 
       <footer className={styles.footer}>
+          <a href="" target="_blank" rel = "noreferrer">
+            <Image src="/envelope-solid.svg" alt="Contact Us" width={20} height={20}/>
+            <p>Contact Us</p>
+          </a> 
+        
+        
+					<a href="" target="_blank" rel = "noreferrer" >
+            <Image src="/file-code-solid.svg" alt="Documentation" width={20} height={20}/>
+            <p>Documentation</p>
+          </a>
+          
         <a
           href="" // Need to add the main app url here
           target="_blank"
-          rel="noopener noreferrer"
-        >
+          rel="noopener noreferrer">
+        
           Powered by{" "}
           <span>
-            <Image
-              src="/qjLogo.png"
-              alt="Quran Journey"
-              width={80}
-              height={80}
-            />
+            <Image src="/qjLogo.png" alt="Quran Journey" width={80} height={80}/>
           </span>
-        </a>
+        </a>  
+       
       </footer>
     </div>
   );
