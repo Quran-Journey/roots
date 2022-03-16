@@ -2,6 +2,10 @@
   padding: 0 2rem;
 }
 
+.footer p{
+  font-size: 1rem;
+}
+
 .main {
   min-height: 90vh;
   padding: 4rem 0;
