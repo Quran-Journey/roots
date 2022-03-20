@@ -1,6 +1,0 @@
-FROM postgres:latest
-ENV POSTGRES_PASSWORD=Yatathakar123!
-ENV POSTGRES_USER=qj
-ENV POSTGRES_DB=database
-COPY quran_simple.sql /docker-entrypoint-initdb.d/quran_simple.sql
-COPY root_tables.sql /docker-entrypoint-initdb.d/root_tables.sql
