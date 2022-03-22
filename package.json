@@ -21,6 +21,6 @@
     "googleapis": "^95.0.0"
   },
   "prettier": {
-    "tabWidth": 2
+    "tabWidth": 4
   }
 }
