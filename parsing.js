@@ -1,5 +1,22 @@
 const { google } = require("googleapis");
 
+async function getDocument(documentId) {
+    const auth = new google.auth.GoogleAuth({
+        keyFile: "credentials.json",
+        scopes: "https://www.googleapis.com/auth/documents",
+    });
+    const client = await auth.getClient();
+    const googleDocs = google.docs({ version: "v1", auth: client });
+
+    const docmetadata = await googleDocs.documents.get({
+        auth,
+        documentId,
+    });
+
+    // Add new_section index extracted_data
+    return docmetadata.data;
+}
+
 // Our main funciton that executes parsing of an entire document
 async function parseDocument(documentId) {
     const auth = new google.auth.GoogleAuth({
@@ -15,7 +32,7 @@ async function parseDocument(documentId) {
     });
 
     // Add new_section index extracted_data
-    let document = { ...docmetadata.data, new_section: 0 };
+    let document = docmetadata.data;
 
     let indices = getVerseIndices(document);
 
@@ -129,4 +146,4 @@ function parseComments(document, verse_loc) {
 
 // Feel free to add any helper functions below this comment but above the module exports.
 
-module.exports = { parseDocument: parseDocument };
+module.exports = { parseDocument, getDocument };
