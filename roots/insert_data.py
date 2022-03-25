@@ -16,7 +16,6 @@ try:
     print(connection.get_dsn_parameters(), "\n")
     # Executing a SQL query
     cursor.execute("SELECT version();")
-
     fetch_rows =  "SELECT * FROM quran_text;"
     cursor.execute(fetch_rows)
     # Fetch result
