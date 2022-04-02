@@ -4,7 +4,7 @@ import {Mail, DeveloperMode} from '@mui/icons-material';
 export default function Footer() {
     return (
     <div>
-    <Box position="fixed" align="center" sx = {{py : 4 }} style={{"width": "100%", bottom: 0}}>
+    <Box position="relative" align="center" sx = {{pt : 10 }} style={{width:"100%", bottom: 0}}>
         <Grid align="center">
         <Typography> Powered by Quran Journey </Typography>   
         </Grid>
