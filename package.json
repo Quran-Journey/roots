@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/osamaramihafez/sheetsParsing#readme",
   "dependencies": {
-    "@emotion/react": "^11.8.2",
     "express": "^4.17.2",
     "googleapis": "^95.0.0",
     "mongodb": "^4.3.1",
