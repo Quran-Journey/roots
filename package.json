@@ -1,29 +1,24 @@
 {
-  "name": "sheetsparsing",
+  "name": "document-processing",
   "version": "1.0.0",
-  "description": "parsing from a google sheet",
+  "description": "Processing QJ documents",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/osamaramihafez/sheetsParsing.git"
+    "url": "git+https://github.com/Quran-Journey/documents.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/osamaramihafez/sheetsParsing/issues"
+    "url": "https://github.com/Quran-Journey/documents/issues"
   },
-  "homepage": "https://github.com/osamaramihafez/sheetsParsing#readme",
+  "homepage": "https://github.com/Quran-Journey/documents#readme",
   "dependencies": {
     "express": "^4.17.2",
-    "googleapis": "^95.0.0",
-    "mongodb": "^4.3.1",
-    "next": "^12.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "styled-components": "^5.3.3"
+    "googleapis": "^95.0.0"
   },
   "prettier": {
     "tabWidth": 2
