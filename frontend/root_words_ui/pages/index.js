@@ -1,4 +1,4 @@
-import Head from "next/Head";
+import Head from "next/head";
 import {Typography, Grid, Box, Card, CardContent}  from '@mui/material';
 import ChapterInput from "../components/chapterInput.js";
 import Navbar from "../components/Navbar";
