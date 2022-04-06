@@ -1,6 +1,5 @@
-import Head from "next/head";
-import {Typography, Grid, Box, Card, CardContent}  from '@mui/material';
-import ChapterInput from "../components/chapterInput.js";
+import Head from "next/Head";
+import {Typography, Grid}  from '@mui/material';
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Form from "../components/Form";
@@ -16,7 +15,7 @@ export default function Home() {
     <Navbar/>
     <Grid container spacing={2} pb = {5} align="center">
       <Grid item xs={12}>
-        <Typography variant="h2" py = {5}>Learn the Linguistics of the Quran</Typography>
+        <Typography variant="h2" py = {5}>Arabic Root Words in the Quran</Typography>
         <Typography variant="h5"> Select a Chapter and a Verse : </Typography>
       </Grid>
     </Grid>
