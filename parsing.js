@@ -49,7 +49,7 @@ async function parseDocument(documentId) {
 }
 
 /**
- *  A generator function that helps us parse each verse individually.
+ *  A generator function that helps us parse a single verse when called.
  *
  *  @param {Object} document
  *  @param {Object} verses

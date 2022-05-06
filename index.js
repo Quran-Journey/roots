@@ -4,6 +4,21 @@ const { parseDocument, getDocument } = require("./parsing");
 const app = express();
 
 /**
+ * An endpoint returning document data
+ *
+ * example document_id: 11wJIGkCKk9GMyOdNlcQMnlJ-7K-VXmb1mA0QsFzG79k
+ */
+app.get("/", async (req, res) => {
+    let routes = { "available routes": [] };
+    app._router.stack.forEach((r) => {
+        if (r.route && r.route.path) {
+            routes["available routes"].push(r.route.path);
+        }
+    });
+    res.send(routes);
+});
+
+/**
  * Actually parsing and reformating the data for our needs
  *
  * example document_id: 11wJIGkCKk9GMyOdNlcQMnlJ-7K-VXmb1mA0QsFzG79k
