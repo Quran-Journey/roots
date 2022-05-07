@@ -34,18 +34,24 @@ async function parseDocument(documentId) {
     // Add new_section index extracted_data
     let document = docmetadata.data;
 
+    let intro = parseIntro(document);
+
     let indices = getVerseIndices(document);
 
     let v_gen = verseGenerator(document, indices);
-    let verses = { chapter: Object.keys(indices)[0].split(":")[0] };
+    let parsed = {
+        chapter: Object.keys(indices)[0].split(":")[0],
+        verses: {},
+        intro: intro,
+    };
     let verse;
     let done;
     while (!done) {
         // The verse generator will take care of the iteration for us.
         ({ value: verse, done } = v_gen.next());
-        !done ? (verses[verse.number] = verse) : null;
+        !done ? (parsed.verses[verse.number] = verse) : null;
     }
-    return verses;
+    return parsed;
 }
 
 /**
@@ -106,6 +112,43 @@ function getVerseIndices(document) {
     });
     console.log(verses);
     return verses;
+}
+
+/**
+ * A function that focuses on parsing the linguistics of a verse
+ *
+ * @param {Object} document
+ * @returns intro_sections, which is an object that contains all of the introduction sections.
+ */
+function parseIntro(document) {
+    let content = document.body.content;
+    let introStart = findIntroStart(content);
+    let intro = { start: introStart };
+    return intro;
+}
+
+function findIntroStart(content) {
+    let foundIntro = false;
+    for (
+        var line_index = 0;
+        line_index < content.length && !foundIntro;
+        line_index++
+    ) {
+        // Find the start of the intro
+        line = content[line_index];
+        let elements = line?.paragraph?.elements;
+        if (elements) {
+            // This is where we look for the title "INTRODUCTION"
+            elements.forEach((e) => {
+                if (e?.textRun.content.includes("INTRODUCTION")) {
+                    console.log("We found the intro", line_index);
+                    introStart = line_index;
+                    foundIntro = true;
+                }
+            });
+        }
+    }
+    return introStart;
 }
 
 /**
