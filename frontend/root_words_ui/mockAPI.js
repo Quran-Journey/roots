@@ -7,14 +7,27 @@ const seedData = {
           id: 1,
           text: "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ قُلْ هُوَ اللَّهُ أَحَدٌ",
         },
-        2: { id: 2, text: "اللَّهُ الصَّمَدُ", words: [""] },
+        2: { id: 2, text: "اللَّهُ الصَّمَدُ"},
         3: { id: 3, text: "لَمْ يَلِدْ وَلَمْ يُولَدْ" },
         4: { id: 4, text: "وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ" },
       },
     },
     2: {
+      name: "Al-Nas",
       verses: {
-        name: "Al-Nas",
+        1: {
+          id: 5,
+          text: "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
+        },
+        2: { id: 6, text: "مِن شَرِّ مَا خَلَقَ" },
+        3: { id: 7, text: "وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ" },
+        4: { id: 8, text: "وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ" },
+        5: { id: 9, text: "وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ" },
+      },
+    },
+    3: {
+      name: "Al-Ikhlas",
+      verses: {
         1: {
           id: 5,
           text: "بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
@@ -30,18 +43,28 @@ const seedData = {
     أَحَدٌ: "احد",
     الرَّحْمَـٰنِ: "رحم",
     الرَّحِيمِ: "رحم",
-  },
+    غَاسِقٍ: "غسق"},
 };
 
-function getChapterVerses(chapter_number) {
-  return seedData.chapters[chapter_number];
+export function getChapterName(chapter_number){
+  return seedData.chapters[chapter_number].name;
 }
 
-function getVerse(chapter_number, verse_number) {
-  return seedData.chapters[chapter_number].verses[verse_number];
+export function getNumberofVerses(chapter_number) {
+  return Object.keys(seedData.chapters[chapter_number].verses).length 
 }
 
-function getRootWords(chapter_number, verse_number) {
+export function getChapterVerses(chapter_number) {
+  return seedData.chapters[chapter_number];  
+}
+
+export function getVerse(chapter_number, verse_number) {
+  return seedData.chapters[chapter_number].verses[verse_number].text;
+}
+
+// dictionary Object (key, value) --> will return all the words with their roots for the verse, its up to 
+// you to break them up when you display them
+export function getRootWords(chapter_number, verse_number) {
   let words = seedData.chapters[chapter_number].verses[verse_number].words;
   let roots = {};
   words.forEach((word) => {
@@ -52,14 +75,15 @@ function getRootWords(chapter_number, verse_number) {
   return roots;
 }
 
-function getChapters() {
+
+export function getChapters() {
   return seedData.chapters;
 }
 
 for (const c_position in seedData.chapters) {
-  chapter = seedData.chapters[c_position];
+  let chapter = seedData.chapters[c_position];
   for (const v_position in chapter.verses) {
-    verse = chapter.verses[v_position];
+    let verse = chapter.verses[v_position];
     if (verse.text) {
       verse.words = verse.text.split(" ");
     }
