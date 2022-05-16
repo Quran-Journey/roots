@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {InputLabel, Button, Typography, Box, Card, CardContent, Grid, item, container} from '@mui/material/';
+import {InputLabel, Button, Typography, Box, Card, CardContent, Grid} from '@mui/material/';
 import MenuItem from '@mui/material/MenuItem';
+import RootWordsDisplay from "./RootWordsDisplay";
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -20,7 +21,7 @@ export default function Form() {
   let chapter_options = Object.keys(chapt).map((c) => { return chapt[c].chapt_list; });
   
  
-  //---------- -----------------Displaying Verse Options -----------------------// 
+  //----------------------------Displaying Verse Options -----------------------// 
   
   let verses = {};
   let verse_count = getNumberofVerses(2)   ///testing using: chapter 2 --> FIGURE OUT 
@@ -31,21 +32,7 @@ export default function Form() {
   }
      let verse_options = Object.keys(verses).map((c) => { return verses[c].verse_list; }); 
 
-  //---------------------------Displaying Root Words --------------------------//
-  let root_words_arr = getRootWords(1,1)
-  let b = {}
-  for (const key in root_words_arr) {
-    let boxes = [];
-    boxes.push(
-    <Grid container>
-    <Grid item xs={6} ><Typography variant="h6">Word: {key} </Typography></Grid>
-    <Grid item xs={6}><Typography variant="h6">Root of Word: {root_words_arr[key]} </Typography></Grid>
-    </Grid>);
-    b[`box_${key}`] = {boxes};
-  }
-    let box_display = Object.keys(b).map((c) => { return b[c].boxes; }); 
 
-  // --------------------------------------------------------------------------//
   const [currentChapter, setChapter] = React.useState('');
   const [currentVerse, setVerse] = React.useState('');
 
@@ -58,7 +45,12 @@ export default function Form() {
   const handleVerseChange = (event) => {
     setVerse(event.target.value)
   };
-  
+   
+  //----------------------------Find Root Button Action---------------------------------------//
+  const [showRootWords, setShowRootWords] = React.useState(false)
+  const onClickFindRoot = () => setShowRootWords(true)
+  //------------------------------------------------------------------------------------------//
+
     return (
     <div>
       <Box display="flex" justifyContent="center">  
@@ -91,24 +83,12 @@ export default function Form() {
       </Box>
 
       <Box display="flex" justifyContent="center" pt = {5} pb={3}>
-      <Button type="submit" variant="contained" color="inherit">Find Root</Button>
+      <Button type="submit" variant="contained" color="inherit" onClick={onClickFindRoot}> 
+      Find Root</Button>
       </Box>
 
-      <Grid container spacing={0} direction="column" alignItems="center" justify="center" style={{ minHeight: '20vh' }}>
-      <Grid item xs={3}>  
-        <Card align= "center" style={{backgroundColor: "lightgrey"}}>
-          <CardContent>
-            <Typography sx={{ fontSize: 22}} color="text.secondary" gutterBottom> Root Words </Typography>
-            <Typography variant="h6" component="div">Verse:</Typography>
-            <Typography variant="h4" component="div">{getVerse(1,1)}</Typography>
+      { showRootWords ? <RootWordsDisplay /> : null }
 
-            
-            {box_display}
-           
-          </CardContent>
-        </Card>
-        </Grid>
-        </Grid>
     </div>
 
   );
