@@ -20,7 +20,6 @@ export default function Form() {
 
   let chapter_options = Object.keys(chapt).map((c) => { return chapt[c].chapt_list; });
   
- 
   //----------------------------Displaying Verse Options -----------------------// 
   
   let verses = {};
@@ -32,6 +31,7 @@ export default function Form() {
   }
      let verse_options = Object.keys(verses).map((c) => { return verses[c].verse_list; }); 
 
+  //----------------------------------------------------------------------------//
 
   const [currentChapter, setChapter] = React.useState('');
   const [currentVerse, setVerse] = React.useState('');
