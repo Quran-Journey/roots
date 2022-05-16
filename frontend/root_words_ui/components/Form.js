@@ -1,22 +1,64 @@
 import * as React from 'react';
-import {InputLabel, Button, Box} from '@mui/material/';
+import {InputLabel, Button, Typography, Box, Card, CardContent, Grid, item, container} from '@mui/material/';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { getChapters, getNumberofVerses, getChapterVerses, getVerse, getRootWords, getChapterName} from ".././mockAPI";
+
 
 export default function Form() {
-  const [chapter, setChapter] = React.useState('');
-  const [verse, setVerse] = React.useState('');
+  //---------- -----------------Displaying Chapter Options -----------------------//
+  let chapt = {};
+  for (var i = 1; i <= 3; i++) {  //replace 3 by 114 when API completed
+      let name = getChapterName(i)
+      let chapt_list = [];
+      chapt_list.push(<MenuItem key={i} value={i}>Chapter {i} : {name}</MenuItem>);  
+      chapt[`chapter_${i}`] = {chapt_list};
+  }
+
+  let chapter_options = Object.keys(chapt).map((c) => { return chapt[c].chapt_list; });
+  
+ 
+  //---------- -----------------Displaying Verse Options -----------------------// 
+  
+  let verses = {};
+  let verse_count = getNumberofVerses(2)   ///testing using: chapter 2 --> FIGURE OUT 
+  for (var i = 1; i <= verse_count; i++){
+     let verse_list = [];
+     verse_list.push(<MenuItem key={i} value={i}>Verse {i}</MenuItem>); 
+     verses[`verse_${i}`] = {verse_list};
+  }
+     let verse_options = Object.keys(verses).map((c) => { return verses[c].verse_list; }); 
+
+  //---------------------------Displaying Root Words --------------------------//
+  let root_words_arr = getRootWords(1,1)
+  let b = {}
+  for (const key in root_words_arr) {
+    let boxes = [];
+    boxes.push(
+    <Grid container>
+    <Grid item xs={6} ><Typography variant="h6">Word: {key} </Typography></Grid>
+    <Grid item xs={6}><Typography variant="h6">Root of Word: {root_words_arr[key]} </Typography></Grid>
+    </Grid>);
+    b[`box_${key}`] = {boxes};
+  }
+    let box_display = Object.keys(b).map((c) => { return b[c].boxes; }); 
+
+  // --------------------------------------------------------------------------//
+  const [currentChapter, setChapter] = React.useState('');
+  const [currentVerse, setVerse] = React.useState('');
+
 
   const handleChapterChange = (event) => {
     setChapter(event.target.value);
   };
 
+  // change this to be dependent on chapter change
   const handleVerseChange = (event) => {
     setVerse(event.target.value)
   };
-
+  
     return (
     <div>
       <Box display="flex" justifyContent="center">  
@@ -25,13 +67,11 @@ export default function Form() {
         <Select
           labelId="demo-simple-select-required-label"
           id="demo-simple-select-required"
-          value={chapter}
+          value={currentChapter}
           label="Chapter"
           onChange={handleChapterChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {chapter_options}
         </Select>
         <FormHelperText>Required</FormHelperText>
       </FormControl>
@@ -40,23 +80,37 @@ export default function Form() {
         <Select
           labelId="demo-simple-select-required-label"
           id="demo-simple-select-required"
-          value={verse}
+          value={currentVerse}
           label="Verse"
-          onChange={handleVerseChange}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          onChange={handleVerseChange}>
+          {verse_options}
         </Select>
         <FormHelperText>Required</FormHelperText>
 
       </FormControl>
       </Box>
 
-      <Box display="flex" justifyContent="center" pt = {5}>
+      <Box display="flex" justifyContent="center" pt = {5} pb={3}>
       <Button type="submit" variant="contained" color="inherit">Find Root</Button>
       </Box>
+
+      <Grid container spacing={0} direction="column" alignItems="center" justify="center" style={{ minHeight: '20vh' }}>
+      <Grid item xs={3}>  
+        <Card align= "center" style={{backgroundColor: "lightgrey"}}>
+          <CardContent>
+            <Typography sx={{ fontSize: 22}} color="text.secondary" gutterBottom> Root Words </Typography>
+            <Typography variant="h6" component="div">Verse:</Typography>
+            <Typography variant="h4" component="div">{getVerse(1,1)}</Typography>
+
+            
+            {box_display}
+           
+          </CardContent>
+        </Card>
+        </Grid>
+        </Grid>
     </div>
 
   );
 }
+  
