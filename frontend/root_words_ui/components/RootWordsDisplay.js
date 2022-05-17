@@ -20,8 +20,8 @@ export default function RootWordsDisplay() {
 
     return (
     <div>
-    <Grid container spacing={0} direction="column" alignItems="center" justify="center" style={{ minHeight: '20vh' }}>
-      <Grid item xs={3}>  
+    <Grid container direction="column">
+      <Grid item>  
         <Card align= "center" style={{backgroundColor: "lightgrey"}}>
           <CardContent>
             <Typography sx={{ fontSize: 22}} color="text.secondary" gutterBottom> Root Words </Typography>

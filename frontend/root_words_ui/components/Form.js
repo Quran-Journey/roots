@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {InputLabel, Button, Typography, Box, Card, CardContent, Grid} from '@mui/material/';
+import {InputLabel, Button, Typography, Box, Card, CardContent, Grid, IconButton} from '@mui/material/';
 import MenuItem from '@mui/material/MenuItem';
 import RootWordsDisplay from "./RootWordsDisplay";
 import FormHelperText from '@mui/material/FormHelperText';
@@ -21,7 +21,6 @@ export default function Form() {
   let chapter_options = Object.keys(chapt).map((c) => { return chapt[c].chapt_list; });
   
   //----------------------------Displaying Verse Options -----------------------// 
-  
   let verses = {};
   let verse_count = getNumberofVerses(2)   ///testing using: chapter 2 --> FIGURE OUT 
   for (var i = 1; i <= verse_count; i++){
@@ -36,7 +35,6 @@ export default function Form() {
   const [currentChapter, setChapter] = React.useState('');
   const [currentVerse, setVerse] = React.useState('');
 
-
   const handleChapterChange = (event) => {
     setChapter(event.target.value);
   };
@@ -49,6 +47,18 @@ export default function Form() {
   //----------------------------Find Root Button Action---------------------------------------//
   const [showRootWords, setShowRootWords] = React.useState(false)
   const onClickFindRoot = () => setShowRootWords(true)
+  //------------------------------------------------------------------------------------------//
+
+  //----------------------------Prev/Next Button Action---------------------------------------//
+  const getPrevVerse = () => {
+    setVerse(currentVerse - 1)
+  };
+
+  const getNextVerse = () => {
+    setVerse(currentVerse + 1)
+  };
+
+  // React.useEffect(() => console.log(currentVerse))  ---> to test if pre/next buttons work
   //------------------------------------------------------------------------------------------//
 
     return (
@@ -87,7 +97,14 @@ export default function Form() {
       Find Root</Button>
       </Box>
 
-      { showRootWords ? <RootWordsDisplay /> : null }
+      <Grid container direction="row" justifyContent="center" alignItems="center" display="inline-flex">
+        <Grid item xs={3}><Button type="submit" variant="contained" color="inherit" onClick={getPrevVerse}> 
+        <IconButton className=" fa-solid fa-angle-left"></IconButton>Previous Verse</Button></Grid>
+        <Grid item xs={6} className="roots-display">{ showRootWords ? <RootWordsDisplay /> : null }</Grid> 
+        <Grid item xs={3}><Button type="submit" variant="contained" color="inherit" onClick={getNextVerse}> 
+        Next Verse<IconButton className=" fa-solid fa-angle-right"></IconButton></Button></Grid>
+      </Grid>
+      
 
     </div>
 
