@@ -46,9 +46,10 @@ export default function Form() {
    
   //----------------------------Find Root Button Action---------------------------------------//
   const [showRootWords, setShowRootWords] = React.useState(false)
-  const onClickFindRoot = () => setShowRootWords(true)
-  //------------------------------------------------------------------------------------------//
+  const onClickFindRoot = () => {setShowRootWords(true)}
 
+  React.useEffect(() => {
+    ((currentChapter === '') || (currentVerse === '')) ? setShowRootWords(false) : onClickFindRoot})
   //----------------------------Prev/Next Button Action---------------------------------------//
   const getPrevVerse = () => {
     setVerse(currentVerse - 1)
