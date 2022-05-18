@@ -41,6 +41,7 @@ arabic_words_df.rename(columns = {'index':'RootID'}, inplace = True)
 arabic_words_data = []
 for index, row in arabic_words_df.iterrows():
     arabic_words_data.append( (row['primary_key'], row['ARABIC'], row['RootID']) )
+    
 
 # Connect to the Postgres SQL Database 
 try:         
@@ -62,7 +63,31 @@ try:
 except (Exception, Error) as error:
     print("Error while connecting to PostgreSQL", error)
     
-# Create functions to insert root words and arabic words data     
+########################################
+### GET data for  TEXT TO WORD table ###
+########################################
+
+# Create surah and ayah columns 
+surah, ayah = [], []
+for row in df["ID"]:
+    surah.append( row.split(":")[0] ) 
+    ayah.append( row.split(":")[1] ) 
+df["Surah"] = surah
+df["Ayah"] = ayah
+df["Surah"] = df["Surah"].values.astype(int)
+df["Ayah"] = df["Ayah"].values.astype(int)
+
+# Generate our text to words table
+TextToWords_df = df.merge(arabic_words_df, left_on ="ARABIC", right_on = "ARABIC", how = 'inner')
+TextToWords_df = TextToWords_df.reset_index()
+
+# Put the dataframe into the format for postgres sql insertion 
+TexttoWord = []
+for index, row in TextToWords_df.iterrows():
+    TexttoWord.append( (row['index'], row['Ayah'], row['primary_key']))
+    
+
+# Create functions to insert root words, arabic words and text to word data   
 def insert_root_words(root_words_data):
     """ Insert Root Words Data into the POSTGRES DB """
     postgres_insert_query = """ INSERT INTO RootWords (RootID, RootWord) VALUES (%s ,%s)"""
@@ -87,6 +112,28 @@ def insert_arabic_text(arabic_text_data):
     print(counter, "records inserted successfully into ArabicWord table")
     return counter
 
+# Create function to get the quran text data 
+def get_quran_text_df():
+    """ Get the quran text dataframe """
+    postgreSQL_select_Query = "select * from quran_text"
+    cursor.execute(postgreSQL_select_Query)
+    print("Selecting rows from table using cursor.fetchall")
+    sql_table_result = cursor.fetchall()
+    quran_text_df = pd.DataFrame(sql_table_result, columns=['index', 'sura', 'aya','text'])
+    return quran_text_df
+
+def insert_text_to_word(text_to_word_data):
+    """ Insert Text to Word  Data into the POSTGRES DB """
+    postgres_insert_query = """ INSERT INTO TextToWord (IndexID, AyahID, WordID) VALUES (%s, %s ,%s)"""
+    counter = 0
+    for row in text_to_word_data:
+        record_to_insert = row
+        cursor.execute(postgres_insert_query, record_to_insert)
+        connection.commit()
+        counter += cursor.rowcount
+    print(counter, "records inserted successfully into TextToWord table")
+    return counter
+
 if __name__ == '__main__':
 
     # Insert the root_words data 
@@ -94,6 +141,12 @@ if __name__ == '__main__':
 
     # Insert the arabic words data 
     insert_arabic_text(arabic_words_data)
+    
+    # Get the quran text df
+    quran_text = get_quran_text_df
+    
+    # Insert text_to_word_df
+    insert_text_to_word(TexttoWord)
 
     # Close the DB connection 
     cursor.close()
