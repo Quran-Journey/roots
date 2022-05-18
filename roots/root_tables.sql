@@ -21,9 +21,10 @@ CREATE TABLE IF NOT EXISTS ArabicWord (
 );
 DROP TABLE IF EXISTS TextToWord;
 CREATE TABLE IF NOT EXISTS TextToWord  (
+    IndexID INT NOT NULL,
     AyahID INT NOT NULL,
     WordID INT NOT NULL,
-    PRIMARY KEY (AyahID, WordID),
+    PRIMARY KEY (IndexID),
     FOREIGN KEY (AyahID)
         REFERENCES quran_text("index")
         ON DELETE CASCADE
