@@ -3,8 +3,6 @@ import {InputLabel, Button, Typography, Box, Card, CardContent, Grid, IconButton
 import RootWordsDisplay from "./RootWordsDisplay";
 import Chapter from "./Chapter";
 import Verse from "./Verse";
-import {getVerseOptions} from "./Verse";
-import { getChapter, getNumberofVerses, getChapterVerses, getVerse, getRootWords} from ".././mockAPI";
 
 
 export default function Form() { 
@@ -16,11 +14,11 @@ export default function Form() {
   React.useEffect(() => {(currentChapter === '') ? setVerse('') : handleVerseChange})
 
 
-  //Find Root Button Action -- LEAVE
+  //Find Root Button Action
   const [showRootWords, setShowRootWords] = React.useState(false)
   const onClickFindRoot = () => {setShowRootWords(true)}
 
-  //Prev/Next Button Action  --> Fix gettting currentVerse
+  //Prev & Next Button Action 
   const getPrevVerse = () => { setVerse(currentVerse - 1)};
   const getNextVerse = () => { setVerse(currentVerse + 1)};
 
