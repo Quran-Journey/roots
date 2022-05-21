@@ -46,8 +46,8 @@ const seedData = {
     غَاسِقٍ: "غسق"},
 };
 
-export function getChapterName(chapter_number){
-  return seedData.chapters[chapter_number].name;
+export function getChapter(chapter_number){
+  return seedData.chapters[chapter_number];
 }
 
 export function getNumberofVerses(chapter_number) {
@@ -62,8 +62,7 @@ export function getVerse(chapter_number, verse_number) {
   return seedData.chapters[chapter_number].verses[verse_number].text;
 }
 
-// dictionary Object (key, value) --> will return all the words with their roots for the verse, its up to 
-// you to break them up when you display them
+// roots is an Object (key, value) 
 export function getRootWords(chapter_number, verse_number) {
   let words = seedData.chapters[chapter_number].verses[verse_number].words;
   let roots = {};

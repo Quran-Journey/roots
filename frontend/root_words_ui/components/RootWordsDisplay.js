@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {InputLabel, Button, Typography, Box, Card, CardContent, Grid} from '@mui/material/';
-
 import { getChapters, getNumberofVerses, getChapterVerses, getVerse, getRootWords, getChapterName} from ".././mockAPI";
 
-export default function RootWordsDisplay() {
-    let root_words_arr = getRootWords(1,1)    // replace with currentChapter, currentVerse inputs 
+export default function RootWordsDisplay(props) {
+    let root_words_arr = getRootWords(props.currentChapter, props.currentVerse)    
     let b = {}
     for (const key in root_words_arr) {
         let boxes = [];
