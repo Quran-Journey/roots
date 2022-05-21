@@ -25,7 +25,7 @@ export default function RootWordsDisplay(props) {
           <CardContent>
             <Typography sx={{ fontSize: 22}} color="text.secondary" gutterBottom> Root Words </Typography>
             <Typography variant="h6" component="div">Verse:</Typography>
-            <Typography variant="h4" component="div">{getVerse(1,1)}</Typography>
+            <Typography variant="h4" component="div">{getVerse(props.currentChapter, props.currentVerse)}</Typography>
 
             
             {box_display}
