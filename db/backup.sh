@@ -1,0 +1,1 @@
+docker exec -i db_postgres_alone_1 /bin/bash -c "PGPASSWORD=Yatathakar123! pg_dump --username qj quranJourney" > ./filled.sql
