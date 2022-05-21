@@ -1,0 +1,25 @@
+{
+  "name": "roots",
+  "version": "1.0.0",
+  "description": "roots of arabic words in the quran",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quran-Journey/roots.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Quran-Journey/roots/issues"
+  },
+  "homepage": "https://github.com/Quran-Journey/roots#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg": "^8.7.3"
+  }
+}
