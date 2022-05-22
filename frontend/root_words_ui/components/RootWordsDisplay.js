@@ -9,7 +9,7 @@ export default function RootWordsDisplay(props) {
         let boxes = [];
         boxes.push(
         <Grid container>
-        <Grid item xs={6}><Typography variant="h6">Word: {key} </Typography></Grid>
+        <Grid item xs={6} ><Typography variant="h6">Word: {key} </Typography></Grid>
         <Grid item xs={6}><Typography variant="h6">Root of Word: {root_words_arr[key]} </Typography></Grid>
         </Grid>);
         b[`box_${key}`] = {boxes};
