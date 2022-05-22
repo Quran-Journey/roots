@@ -5,17 +5,23 @@ import Chapter from "./Chapter";
 import Verse from "./Verse";
 import NextButton from "./NextButton"
 import PrevButton from "./PrevButton"
-//import { getNumberofVerses } from ".././mockAPI";
+import { getNumberofVerses } from ".././mockAPI";
 
 
 export default function Form() { 
   const [currentChapter, setChapter] = React.useState('')
   const [currentVerse, setVerse] = React.useState('');
   const [verseOptions, setVerseOptions] = React.useState('');
+
   
+  //const [showPrevButton, setShowPrevButton] = React.useState(false)
+  //const [showNextButton, setShowNextButton] = React.useState(false)
+
+  console.log(getNumberofVerses(2))
 
   const handleVerseChange = (event) => {
     setVerse(event.target.value)
+
   };
 
   React.useEffect(() => {(currentChapter === '') ? setVerse('') : handleVerseChange})
@@ -44,9 +50,9 @@ export default function Form() {
 
       <Grid item><PrevButton setVerse={setVerse} currentVerse={currentVerse}/></Grid>
 
-      <Grid item className="roots-display">{ showRootWords ? <RootWordsDisplay currentChapter={currentChapter} currentVerse={currentVerse} /> : null } </Grid> 
+      <Grid item>{ showRootWords ? <RootWordsDisplay currentChapter={currentChapter} currentVerse={currentVerse} /> : null } </Grid> 
 
-      <Grid item><NextButton setVerse={setVerse} currentVerse={currentVerse}/></Grid>
+      <Grid item><NextButton setVerse={setVerse} currentChapter = {currentChapter} currentVerse={currentVerse}/></Grid>
 
     </Grid>
     
