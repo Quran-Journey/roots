@@ -7,9 +7,9 @@ export default function NextButton(props) {
 
     return (
         <div>
-            <Grid item xs={3}><Button type="submit" variant="contained" color="inherit" onClick={getNextVerse}> 
-                Next Verse<IconButton className=" fa-solid fa-angle-right"></IconButton></Button>
-            </Grid>
+            <Button type="submit" variant="contained" color="inherit" onClick={getNextVerse}> 
+                Next Verse<IconButton className=" fa-solid fa-angle-right"></IconButton>
+            </Button>
         </div>
     )
 }
