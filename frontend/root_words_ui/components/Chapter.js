@@ -7,6 +7,7 @@ import { getChapter } from ".././mockAPI";
 export default function Chapter(props) {;
 
     const handleChapterChange = (event) => {
+        props.setVerse === '';
         props.setVerseOptions === '';
         props.setChapter(event.target.value);
         let ver = getVerseOptions(event.target.value);

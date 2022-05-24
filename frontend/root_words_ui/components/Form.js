@@ -5,7 +5,6 @@ import Chapter from "./Chapter";
 import Verse from "./Verse";
 import NextButton from "./NextButton"
 import PrevButton from "./PrevButton"
-import { getNumberofVerses } from ".././mockAPI";
 
 
 export default function Form() { 
@@ -13,15 +12,8 @@ export default function Form() {
   const [currentVerse, setVerse] = React.useState('');
   const [verseOptions, setVerseOptions] = React.useState('');
 
-  
-  //const [showPrevButton, setShowPrevButton] = React.useState(false)
-  //const [showNextButton, setShowNextButton] = React.useState(false)
-
-  console.log(getNumberofVerses(2))
-
   const handleVerseChange = (event) => {
     setVerse(event.target.value)
-
   };
 
   React.useEffect(() => {(currentChapter === '') ? setVerse('') : handleVerseChange})
@@ -35,7 +27,7 @@ export default function Form() {
   <div>
     <Box display="flex" justifyContent="center">  
 
-      <Chapter currentChapter={currentChapter} setChapter={setChapter} setVerseOptions={setVerseOptions} verseOptions={verseOptions}/>
+      <Chapter currentChapter={currentChapter} setVerse={setVerse} setChapter={setChapter} setVerseOptions={setVerseOptions}/>
 
       <Verse currentChapter={currentChapter} currentVerse={currentVerse} setVerse={setVerse} verseOptions={verseOptions} handleVerseChange={handleVerseChange}/>
 
@@ -46,15 +38,15 @@ export default function Form() {
       Find Root</Button>
     </Box>
 
-    <Grid container direction="row" justifyContent="center" alignItems="center" display="inline-flex">
+    { showRootWords ? <Grid container direction="row" justifyContent="center" alignItems="center" display="inline-flex">
 
       <Grid item><PrevButton setVerse={setVerse} currentVerse={currentVerse}/></Grid>
 
-      <Grid item>{ showRootWords ? <RootWordsDisplay currentChapter={currentChapter} currentVerse={currentVerse} /> : null } </Grid> 
+      <Grid item><RootWordsDisplay currentChapter={currentChapter} currentVerse={currentVerse} /></Grid> 
 
       <Grid item><NextButton setVerse={setVerse} currentChapter = {currentChapter} currentVerse={currentVerse}/></Grid>
 
-    </Grid>
+    </Grid> : null } 
     
 
   </div>
