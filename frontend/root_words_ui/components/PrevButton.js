@@ -8,7 +8,7 @@ export default function NextButton(props) {
     return (
         <div>
             <Button disabled={props.currentVerse == '1'} type="submit" variant="contained" color="inherit" onClick={getPrevVerse}> 
-                <IconButton className=" fa-solid fa-angle-left"></IconButton>Previous Verse</Button> 
+                <IconButton className=" fa-solid fa-angle-left"></IconButton>Prev Verse</Button> 
         </div>
     )
 }

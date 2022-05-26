@@ -8,9 +8,9 @@ export default function RootWordsDisplay(props) {
     for (const key in root_words_arr) {
         let boxes = [];
         boxes.push(
-        <Grid container>
-        <Grid item xs={6} ><Typography variant="h6">{key} </Typography></Grid>
-        <Grid item xs={6}><Typography variant="h6">{root_words_arr[key]} </Typography></Grid>
+        <Grid container pb={2}>
+        <Grid item xs={6}><Typography sx={{ fontSize: 16}}>{key}</Typography></Grid>
+        <Grid item xs={6}><Typography sx={{ fontSize: 16}}>{root_words_arr[key]} </Typography></Grid>
         </Grid>);
         b[`box_${key}`] = {boxes};
     }
@@ -23,12 +23,12 @@ export default function RootWordsDisplay(props) {
       <Grid item>  
         <Card align= "center" style={{backgroundColor: "lightgrey"}}>
           <CardContent>
-            <Typography sx={{ fontSize: 22}} color="text.secondary" gutterBottom> Root Words </Typography>
-            <Typography variant="h6" component="div">Verse:</Typography>
-            <Typography variant="h4" component="div">{getVerse(props.currentChapter, props.currentVerse)}</Typography>
-            <Grid container>
-            <Grid item xs={6} ><Typography variant="h6">Word</Typography></Grid>
-            <Grid item xs={6}><Typography variant="h6">Root of Word</Typography></Grid>
+           
+            <Typography sx={{ fontSize: 14}} component="div" pb={1}>Verse</Typography>
+            <Typography variant="h5" component="div" pb={2}>{getVerse(props.currentChapter, props.currentVerse)}</Typography>
+            <Grid container pb={2}>
+            <Grid item xs={6}><Typography variant="outline">Word</Typography></Grid>
+            <Grid item xs={6}><Typography variant="outline">Root of Word</Typography></Grid>
             </Grid>
 
             {box_display}
