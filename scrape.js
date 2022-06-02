@@ -23,6 +23,41 @@ let options = new chrome.Options();
 
 options.headless();
 
+async function go_through_letters() {
+    var driver = await new Builder()
+        .forBrowser("chrome")
+        .setChromeOptions(options)
+        .build();
+    try {
+        await driver.get(
+            "http://www.alquran.eu/index.php?searchOption=roots&trans=Quran&selectedSuras=1,&searchText=%D8%A7&srchT=Quran"
+        );
+        let table = await driver.findElements(By.id("roots_table"));
+        // console.log(table);
+        let rows = await table[0].findElements(By.css("tr"));
+        let roots = {};
+        let new_roots;
+        for (var row = 0; row < rows.length; row++) {
+            let letters = await rows[row].findElements(By.css("td"));
+            for (var letter = 0; letter < letters.length; letter++) {
+                table = await driver.findElements(By.id("roots_table"));
+                // console.log(table);
+                rows = await table[0].findElements(By.css("tr"));
+                letters = await rows[row].findElements(By.css("td"));
+                console.log(letters[letter]);
+                await letters[letter].click();
+                new_roots = await scrape_page(driver);
+                roots = { ...roots, ...new_roots };
+            }
+        }
+    } finally {
+        console.log("quitting");
+        setTimeout(() => {
+            driver.quit();
+        }, 10000);
+    }
+}
+
 /**
  * We want to scrape all of the meanings for all of the root words for that start with a specific letter.
  *
@@ -30,51 +65,50 @@ options.headless();
  * we want to find the next <td class="rootExpl" ...> which will contain inside of it the
  * english explanation represented by <div id="rootEn" ...>
  */
-async function scrape_page() {
+async function scrape_page(driver) {
     // Assume we have already navigated to the correct page.
-    console.log("Starting script");
-    var driver = await new Builder()
-        .forBrowser("chrome")
-        .setChromeOptions(options)
-        .build();
+    // console.log("Starting script");
+    // var driver = await new Builder()
+    //     .forBrowser("chrome")
+    //     .setChromeOptions(options)
+    //     .build();
     // let browser = new chrome.Driver(options);
-    console.log("Script has started");
+    console.log("On a new page");
     // let predriver = await new Builder().forBrowser("chrome");
     // console.log("Script has continued")
     // let driver = predriver.build();
     let page_roots = {};
-    try {
-        await driver.get(
-            "http://www.alquran.eu/index.php?searchOption=roots&trans=Quran&selectedSuras=1,&searchText=%D8%A7&srchT=Quran"
-        );
-        // Find all of the rootnames in the page and store them into a list
-        let rootElements = await driver.findElements(By.className("rootname"));
-        // let menuElements = await driver.findElements(By.className("rootMenu"));
-        let englishMeanings = await driver.findElements(By.id("rootEn"));
-        console.log("Falafel");
-        // let root = await rootElements[111].findElements(By.xpath(".//a"));
-        // let root_word = await root[0].getText()
-        // console.log(root_word, root_word.length);
-        let root, word;
-        for (var index = 0; index < rootElements.length; index++) {
-            // Note: we can use the same index for the root word and the english meaning of that root word.
-            // Becuase they should match in count.
-            root = await rootElements[index].findElements(By.xpath(".//a"));
-            // console.log(root);
-            if (root) {
-                word = await root[0].getText();
-                // console.log(word);
-                page_roots[word] = [];
-                page_roots[word].push(await englishMeanings[index].getAttribute("innerText"));
-            }
+    // try {
+    // Find all of the rootnames in the page and store them into a list
+    let rootElements = await driver.findElements(By.className("rootname"));
+    // let menuElements = await driver.findElements(By.className("rootMenu"));
+    let englishMeanings = await driver.findElements(By.id("rootEn"));
+    // let root = await rootElements[111].findElements(By.xpath(".//a"));
+    // let root_word = await root[0].getText()
+    // console.log(root_word, root_word.length);
+    let root, word;
+    for (var index = 0; index < rootElements.length; index++) {
+        // Note: we can use the same index for the root word and the english meaning of that root word.
+        // Becuase they should match in count.
+        root = await rootElements[index].findElements(By.xpath(".//a"));
+        // console.log(root);
+        if (root) {
+            word = await root[0].getText();
+            // console.log(word);
+            page_roots[word] = [];
+            page_roots[word].push(
+                await englishMeanings[index].getAttribute("innerText")
+            );
         }
-        console.log([page_roots]);
-    } finally {
-        console.log("quitting");
-        setTimeout(() => {
-            driver.quit();
-        }, 10000);
     }
+    console.log([page_roots]);
+    // } finally {
+    //     console.log("quitting");
+    //     setTimeout(() => {
+    //         driver.quit();
+    //     }, 10000);
+    // }
+    return page_roots;
 }
 
 // Maybe we don't need to click anything
@@ -92,4 +126,4 @@ async function scrape_page() {
 
 //   NOTE: we should verify all of the data in our DB because it seems like it may be incorrect. We have 1799 root words when there should only be 17
 
-scrape_page();
+go_through_letters();
