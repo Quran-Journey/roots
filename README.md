@@ -1,6 +1,8 @@
-# Purpose
+# Roots Microservice
 
-Roots is a microservice that provides the root of each Arabic word along with their meanings from the Quran. The MVP of this service will have a frontend view and an api service that can be used with other applications.
+## Purpose
+
+Roots is a microservice that provides the root of each Arabic word along with their meanings from the Quran. The MVP of this service will have a frontend view and an API service that can be used with other applications.
 
 
 ## High-Level Architecture 
