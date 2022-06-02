@@ -4,6 +4,7 @@ const { Builder, By, Key, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 const service = new chrome.ServiceBuilder("/usr/local/bin/chromedriver");
 // const os = require("os");
+const fs = require("fs");
 
 let options = new chrome.Options();
 
@@ -38,18 +39,24 @@ async function go_through_letters() {
         let roots = {};
         let new_roots;
         for (var row = 0; row < rows.length; row++) {
+            table = await driver.findElements(By.id("roots_table"));
+            // console.log(table);
+            rows = await table[0].findElements(By.css("tr"));
             let letters = await rows[row].findElements(By.css("td"));
             for (var letter = 0; letter < letters.length; letter++) {
                 table = await driver.findElements(By.id("roots_table"));
                 // console.log(table);
                 rows = await table[0].findElements(By.css("tr"));
                 letters = await rows[row].findElements(By.css("td"));
-                console.log(letters[letter]);
+                // console.log(letters[letter]);
                 await letters[letter].click();
                 new_roots = await scrape_page(driver);
                 roots = { ...roots, ...new_roots };
             }
         }
+        console.log(roots);
+        let data = JSON.stringify(roots);
+        fs.writeFileSync("root_meanings.json", data);
     } finally {
         console.log("quitting");
         setTimeout(() => {
@@ -101,7 +108,7 @@ async function scrape_page(driver) {
             );
         }
     }
-    console.log([page_roots]);
+    console.log(page_roots);
     // } finally {
     //     console.log("quitting");
     //     setTimeout(() => {
