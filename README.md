@@ -9,7 +9,4 @@ Roots is a microservice that provides the root of each Arabic word along with th
 
 Below is the high-level architecture diagram. The process begins by scraping root words from resourceful websites and designated Excel sheets. We parse and organize that content then store it in our database so that Node can retrieve that data. Node then communicates information from the database to Next.js so that it's interactively displayed on the frontend. 
 
-![Roots Architecture Diagram](https://user-images.githubusercontent.com/35634011/171741358-d166ae19-2262-47f4-98fc-906e06bc23ab.png)
-
-
-
+![Roots Architecture Diagram](https://user-images.githubusercontent.com/35634011/171746977-4bd7695c-8c72-429c-97b6-c789b896aae4.png)
