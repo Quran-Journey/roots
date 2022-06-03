@@ -5,9 +5,9 @@ import pandas as pd
 from psycopg2 import Error
 
 # Read in the data file that we need to insert
-df = pd.read_excel("/Users/tahir/Desktop/Github/documents/db/Data/Cleaned_Root_letters.xlsx")
+df = pd.read_excel("./Data/Cleaned_Root_letters.xlsx")
 
-# Prep Data for RootWords Table 
+# Prep Data for RootWord Table 
 lst = list(df['Root_Letters'])
 lst = set(lst)
 
@@ -47,10 +47,10 @@ for index, row in arabic_words_df.iterrows():
 try:         
     # Define DB connection parameters 
     dbHost = '127.0.0.1'
-    dbPort = 5434
+    dbPort = 5432
     dbUser = 'qj'
     dbPassword= 'Yatathakar123!'
-    dbName = 'quranJourney'
+    dbName = 'quranjourney'
 
     # connect to the PostgreSQL database
     connection = psycopg2.connect(user=dbUser,
@@ -93,14 +93,14 @@ for index, row in TextToWords_df.iterrows():
 # Create functions to insert root words, arabic words and text to word data   
 def insert_root_words(root_words_data):
     """ Insert Root Words Data into the POSTGRES DB """
-    postgres_insert_query = """ INSERT INTO RootWords (RootID, RootWord) VALUES (%s ,%s)"""
+    postgres_insert_query = """ INSERT INTO RootWord (RootID, RootWord) VALUES (%s ,%s)"""
     counter = 0
     for row in root_words_data:
         record_to_insert = row
         cursor.execute(postgres_insert_query, record_to_insert)
         connection.commit()
         counter += cursor.rowcount
-    print(counter, "records inserted successfully into rootWords table")
+    print(counter, "records inserted successfully into rootWord table")
     return counter
 
 def insert_arabic_text(arabic_text_data):
