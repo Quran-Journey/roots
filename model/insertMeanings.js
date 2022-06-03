@@ -1,6 +1,7 @@
 const utils = require("./utils");
 const fs = require("fs");
-const { FORMERR } = require("dns");
+
+// Only needs to be executed when db is being initialized.
 
 async function insertMeanings(data) {
     var sql =

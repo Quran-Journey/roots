@@ -1,4 +1,6 @@
-// Note: add the selenium driver as a dev dependency (not a dependency)
+// Note: we've add the selenium driver as a dev dependency (not a project dependency)
+// This is because the purpose of this script is not to run in production, but rather
+// for pre processing purposes (scraping data from the web).
 const { Builder, By, Key, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 const service = new chrome.ServiceBuilder("/usr/local/bin/chromedriver");
@@ -15,7 +17,7 @@ options.headless();
  * 2. Find and store the first root word.
  * 3. Find and store the meaning for that root word.
  * 4. Find the next root word and repeat the process until all root word meanings in the page are found.
- * 5. Go to the next page containing the next letter, repeat from step 2 until all letters are scraped.
+ * 5. Go to the next page containing the next letter, repeat from step 2 until all root word meanings are scraped.
  *
  */
 
@@ -41,7 +43,6 @@ async function go_through_letters() {
                 roots = { ...roots, ...new_roots };
             }
         }
-        console.log(roots);
         let data = JSON.stringify(roots);
         fs.writeFileSync("root_meanings.json", data);
     } finally {
@@ -63,7 +64,7 @@ async function refreshLetters(driver, rows, row) {
  * We want to scrape all of the meanings for all of the root words for that start with a specific letter.
  */
 async function scrape_page(driver) {
-    console.log("On a new page");
+    console.log("Scraping a new page");
     let page_roots = {};
     let rootElements = await driver.findElements(By.className("rootname"));
     let englishMeanings = await driver.findElements(By.id("rootEn"));
@@ -77,6 +78,7 @@ async function scrape_page(driver) {
             );
         }
     }
+    console.log(`Scraped ${Object.keys(page_roots).length} word meanings`);
     return page_roots;
 }
 
