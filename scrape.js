@@ -29,21 +29,13 @@ async function go_through_letters() {
             "http://www.alquran.eu/index.php?searchOption=roots&trans=Quran&selectedSuras=1,&searchText=%D8%A7&srchT=Quran"
         );
         let table = await driver.findElements(By.id("roots_table"));
-        // console.log(table);
         let rows = await table[0].findElements(By.css("tr"));
         let roots = {};
-        let new_roots;
+        let new_roots, letters;
         for (var row = 0; row < rows.length; row++) {
-            table = await driver.findElements(By.id("roots_table"));
-            // console.log(table);
-            rows = await table[0].findElements(By.css("tr"));
-            let letters = await rows[row].findElements(By.css("td"));
+            letters = await refreshLetters(driver, rows, row);
             for (var letter = 0; letter < letters.length; letter++) {
-                table = await driver.findElements(By.id("roots_table"));
-                // console.log(table);
-                rows = await table[0].findElements(By.css("tr"));
-                letters = await rows[row].findElements(By.css("td"));
-                // console.log(letters[letter]);
+                letters = await refreshLetters(driver, rows, row);
                 await letters[letter].click();
                 new_roots = await scrape_page(driver);
                 roots = { ...roots, ...new_roots };
@@ -60,6 +52,13 @@ async function go_through_letters() {
     }
 }
 
+async function refreshLetters(driver, rows, row) {
+    table = await driver.findElements(By.id("roots_table"));
+    rows = await table[0].findElements(By.css("tr"));
+    letters = await rows[row].findElements(By.css("td"));
+    return letters;
+}
+
 /**
  * We want to scrape all of the meanings for all of the root words for that start with a specific letter.
  */
@@ -70,19 +69,14 @@ async function scrape_page(driver) {
     let englishMeanings = await driver.findElements(By.id("rootEn"));
     let root, word;
     for (var index = 0; index < rootElements.length; index++) {
-        // Note: we can use the same index for the root word and the english meaning of that root word.
-        // Becuase they should match in count.
         root = await rootElements[index].findElements(By.xpath(".//a"));
-        // console.log(root);
         if (root) {
             word = formatWord(await root[0].getText()) + " ";
-            // console.log(word);
             page_roots[word] = await englishMeanings[index].getAttribute(
                 "innerText"
             );
         }
     }
-    console.log(page_roots);
     return page_roots;
 }
 
