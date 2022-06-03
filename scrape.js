@@ -1,13 +1,11 @@
 // Note: add the selenium driver as a dev dependency (not a dependency)
-// example taken from: https://www.selenium.dev/selenium/docs/api/javascript/index.html
 const { Builder, By, Key, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
 const service = new chrome.ServiceBuilder("/usr/local/bin/chromedriver");
-// const os = require("os");
 const fs = require("fs");
 
 let options = new chrome.Options();
-
+options.headless();
 /**
  * http://www.alquran.eu/ organizes root words alphabetically, where each page
  * contains all of the roots that start with a specific letter.
@@ -19,10 +17,7 @@ let options = new chrome.Options();
  * 4. Find the next root word and repeat the process until all root word meanings in the page are found.
  * 5. Go to the next page containing the next letter, repeat from step 2 until all letters are scraped.
  *
- *
  */
-
-options.headless();
 
 async function go_through_letters() {
     var driver = await new Builder()
@@ -67,32 +62,12 @@ async function go_through_letters() {
 
 /**
  * We want to scrape all of the meanings for all of the root words for that start with a specific letter.
- *
- * All roots are stored in the <td class="rootname" ...>.
- * we want to find the next <td class="rootExpl" ...> which will contain inside of it the
- * english explanation represented by <div id="rootEn" ...>
  */
 async function scrape_page(driver) {
-    // Assume we have already navigated to the correct page.
-    // console.log("Starting script");
-    // var driver = await new Builder()
-    //     .forBrowser("chrome")
-    //     .setChromeOptions(options)
-    //     .build();
-    // let browser = new chrome.Driver(options);
     console.log("On a new page");
-    // let predriver = await new Builder().forBrowser("chrome");
-    // console.log("Script has continued")
-    // let driver = predriver.build();
     let page_roots = {};
-    // try {
-    // Find all of the rootnames in the page and store them into a list
     let rootElements = await driver.findElements(By.className("rootname"));
-    // let menuElements = await driver.findElements(By.className("rootMenu"));
     let englishMeanings = await driver.findElements(By.id("rootEn"));
-    // let root = await rootElements[111].findElements(By.xpath(".//a"));
-    // let root_word = await root[0].getText()
-    // console.log(root_word, root_word.length);
     let root, word;
     for (var index = 0; index < rootElements.length; index++) {
         // Note: we can use the same index for the root word and the english meaning of that root word.
@@ -108,15 +83,12 @@ async function scrape_page(driver) {
         }
     }
     console.log(page_roots);
-    // } finally {
-    //     console.log("quitting");
-    //     setTimeout(() => {
-    //         driver.quit();
-    //     }, 10000);
-    // }
     return page_roots;
 }
 
+/**
+ * Ensure that a root word is formatted the same way it is in the database.
+ */
 function formatWord(word) {
     let character;
     let new_word = "";
@@ -130,17 +102,6 @@ function formatWord(word) {
     }
     return new_word.trim();
 }
-
-/**
- * Get the meanings of a root word from the menu section.
- */
-// async function getMeanings(menuElements, index) {
-//     // We will search for the english meanings element by xpath
-//     let englishElement = await driver.findElements(
-//         By.className(".//a[@title='english root explanation']")
-//     );
-//     let menuElements = await driver.findElements(By.className("rootEn"));
-// }
 
 //   NOTE: we should verify all of the data in our DB because it seems like it may be incorrect. We have 1799 root words when there should only be 17
 
