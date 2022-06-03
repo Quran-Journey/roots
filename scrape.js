@@ -100,11 +100,10 @@ async function scrape_page(driver) {
         root = await rootElements[index].findElements(By.xpath(".//a"));
         // console.log(root);
         if (root) {
-            word = await root[0].getText();
+            word = formatWord(await root[0].getText()) + " ";
             // console.log(word);
-            page_roots[word] = [];
-            page_roots[word].push(
-                await englishMeanings[index].getAttribute("innerText")
+            page_roots[word] = await englishMeanings[index].getAttribute(
+                "innerText"
             );
         }
     }
@@ -118,7 +117,19 @@ async function scrape_page(driver) {
     return page_roots;
 }
 
-// Maybe we don't need to click anything
+function formatWord(word) {
+    let character;
+    let new_word = "";
+    for (var c = 0; c < word.length; c++) {
+        character = word[c];
+        if (character == "أ") {
+            new_word += " " + "ا";
+        } else {
+            new_word += " " + character;
+        }
+    }
+    return new_word.trim();
+}
 
 /**
  * Get the meanings of a root word from the menu section.
