@@ -72,10 +72,11 @@ async function scrape_page(driver) {
     for (var index = 0; index < rootElements.length; index++) {
         root = await rootElements[index].findElements(By.xpath(".//a"));
         if (root) {
-            word = formatWord(await root[0].getText()) + " ";
+            word = formatWord(await root[0].getText());
             page_roots[word] = await englishMeanings[index].getAttribute(
                 "innerText"
             );
+            page_roots[word] = page_roots[word].replace(/(\r\n|\n|\r)/gm, "");
         }
     }
     console.log(`Scraped ${Object.keys(page_roots).length} word meanings`);
