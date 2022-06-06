@@ -1,3 +1,4 @@
+// NOTICE: this script relies on a selenium web driver, without which it will not work.
 // Note: we've add the selenium driver as a dev dependency (not a project dependency)
 // This is because the purpose of this script is not to run in production, but rather
 // for pre processing purposes (scraping data from the web).

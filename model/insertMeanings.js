@@ -14,7 +14,7 @@ async function insertMeanings(data) {
     );
 }
 
-let rawdata = fs.readFileSync("../root_meanings.json");
+let rawdata = fs.readFileSync("./root_meanings.json");
 let meanings = JSON.parse(rawdata);
 let words = Object.keys(meanings);
 let data;
