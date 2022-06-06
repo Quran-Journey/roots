@@ -37,7 +37,7 @@ async function getVerseRootWords(data) {
     return invalid;
   }
   let sql =
-    "SELECT * FROM (SELECT * FROM TextToWord as ttw JOIN ArabicWord as aw on aw.WordID=ttw.WordID WHERE AyahID=$1) as taw JOIN RootWords as rt ON rt.RootID=taw.rootID;";
+    "SELECT * FROM (SELECT ayahID, aw.wordID, word, rootid FROM TextToWord as ttw JOIN ArabicWord as aw on aw.WordID=ttw.WordID WHERE AyahID=$1) as taw JOIN RootWord as rt ON rt.RootID=taw.rootID;";
   var params = [data.verse_id];
   return await utils.retrieve(
     sql,

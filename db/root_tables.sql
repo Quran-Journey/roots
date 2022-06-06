@@ -1,30 +1,28 @@
 --- Some comments on the table below 
 --- the quran_text table is defined in quran-simple.sql
 
-DROP TABLE IF EXISTS RootWords CASCADE;
-CREATE TABLE IF NOT EXISTS RootWords (
-    RootID INT NOT NULL,
-    RootWord VARCHAR(225) NOT NULL,
-    PRIMARY KEY (RootID)
+DROP TABLE IF EXISTS RootWord CASCADE;
+CREATE TABLE IF NOT EXISTS RootWord (
+    RootID INT PRIMARY KEY,
+    RootWord VARCHAR(225) NOT NULL UNIQUE
 );
 
 DROP TABLE IF EXISTS ArabicWord CASCADE;
 CREATE TABLE IF NOT EXISTS ArabicWord (
-    WordID INT NOT NULL,
+    WordID INT PRIMARY KEY,
     Word VARCHAR(255) NOT NULL,
     RootID INT NOT NULL,
-    PRIMARY KEY (WordID),
     FOREIGN KEY (RootID)
-        REFERENCES RootWords(RootID)
+        REFERENCES RootWord(RootID)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
 DROP TABLE IF EXISTS TextToWord CASCADE;
 CREATE TABLE IF NOT EXISTS TextToWord  (
-    AyahID INT NOT NULL,
+    IndexID INT NOT NULL,
     WordID INT NOT NULL,
-    PRIMARY KEY (AyahID, WordID),
-    FOREIGN KEY (AyahID)
+    PRIMARY KEY (IndexID, WordID),
+    FOREIGN KEY (IndexID)
         REFERENCES quran_text("index")
         ON DELETE CASCADE
         ON UPDATE CASCADE,
@@ -32,4 +30,13 @@ CREATE TABLE IF NOT EXISTS TextToWord  (
 		REFERENCES ArabicWord(WordID)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
+);
+DROP TABLE IF EXISTS RootMeaning CASCADE;
+CREATE TABLE IF NOT EXISTS RootMeaning  (
+    RootWord VARCHAR(225) PRIMARY KEY,
+    Meanings TEXT,
+    FOREIGN KEY (RootWord)
+        REFERENCES RootWord(RootWord)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
