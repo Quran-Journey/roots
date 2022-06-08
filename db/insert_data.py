@@ -92,10 +92,10 @@ for index, row in TextToWords_df.iterrows():
 try:         
     # Define DB connection parameters 
     dbHost = '127.0.0.1'
-    dbPort = 5434
+    dbPort = 5432
     dbUser = 'qj'
     dbPassword= 'Yatathakar123!'
-    dbName = 'quranJourney'
+    dbName = 'quranjourney'
 
     # connect to the PostgreSQL database
     connection = psycopg2.connect(user=dbUser,

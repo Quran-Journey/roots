@@ -77,7 +77,7 @@ async function scrape_page(driver) {
             page_roots[word] = await englishMeanings[index].getAttribute(
                 "innerText"
             );
-            page_roots[word] = page_roots[word].replace(/(\r\n|\n|\r)/gm, "");
+            page_roots[word] = page_roots[word].replace(/(\r\n|\n|\r)/gm, ". ");
         }
     }
     console.log(`Scraped ${Object.keys(page_roots).length} word meanings`);
