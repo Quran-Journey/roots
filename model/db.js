@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path: "../.env"});
 const Client = require("pg").Client;
 
 const config = {

@@ -14,12 +14,16 @@ async function insertMeanings(data) {
     );
 }
 
-let rawdata = fs.readFileSync("../root_meanings.json");
-let meanings = JSON.parse(rawdata);
-let words = Object.keys(meanings);
-let data;
-for (var m = 0; m < words.length; m++) {
-    data = { word: words[m], meanings: meanings[words[m]] };
-    // console.log("inserting stuff")
-    console.log(insertMeanings(data));
+async function main() {
+    let rawdata = fs.readFileSync("./root_meanings.json");
+    let meanings = JSON.parse(rawdata);
+    let words = Object.keys(meanings);
+    let data;
+    for (var m = 0; m < words.length; m++) {
+        data = { word: words[m], meanings: meanings[words[m]] };
+        // console.log("inserting stuff")
+        console.log(await insertMeanings(data));
+    }
 }
+
+main().then(() => process.exit());
