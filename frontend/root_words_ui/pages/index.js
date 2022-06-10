@@ -1,56 +1,34 @@
-import Head from "next/Head";
-import Image from "next/Image";
-import styles from "../styles/Home.module.css";
-import ChapterInput from "../components/chapterInput.js";
+import Head from "next/head";
+import {Typography, Grid}  from '@mui/material';
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Form from "../components/Form";
+// import { getChapters } from "../mockAPI";
 
 export default function Home() {
+  // let chapters = getChapters();
+  // console.log(chapters)
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Quranic Root Words</title>
-        <meta
-          name="description"
-          content="Roots of the arabic words in the quran."
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div>
+    <Head>
+      <meta name="description" content="Roots of the arabic words in the quran."/>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Arabic Root Words in the Quran</h1>
+    <Navbar/>
+    <Grid container spacing={2} pb = {5} align="center">
+      <Grid item xs={12}>
+        <Typography variant="h2" py = {5}>Arabic Root Words in the Quran</Typography>
+        <Typography variant="h5"> Select a Chapter and a Verse : </Typography>
+      </Grid>
+    </Grid>
+  
+    <Form/>
 
-        <p className={styles.description}>
-          Find the root of any word in the quran.
-        </p>
 
-        <ChapterInput></ChapterInput>
 
-      
-      </main>
 
-      <footer className={styles.footer}>
-          <a href="" target="_blank" rel = "noreferrer">
-            <Image src="/envelope-solid.svg" alt="Contact Us" width={20} height={20}/>
-            <p>Contact Us</p>
-          </a> 
-        
-        
-					<a href="" target="_blank" rel = "noreferrer" >
-            <Image src="/file-code-solid.svg" alt="Documentation" width={20} height={20}/>
-            <p>Documentation</p>
-          </a>
-          
-        <a
-          href="" // Need to add the main app url here
-          target="_blank"
-          rel="noopener noreferrer">
-        
-          Powered by{" "}
-          <span>
-            <Image src="/qjLogo.png" alt="Quran Journey" width={80} height={80}/>
-          </span>
-        </a>  
-       
-      </footer>
+    <Footer/>
     </div>
   );
 }
