@@ -3,6 +3,16 @@ import os
 import psycopg2
 import pandas as pd
 from psycopg2 import Error
+import os
+from dotenv import load_dotenv
+
+load_dotenv("../.env")
+
+PG_HOST = os.getenv('POSTGRES_HOST')
+PG_PORT = os.getenv('POSTGRES_PORT')
+PG_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+PG_USER = os.getenv('POSTGRES_USER')
+PG_DB = os.getenv('POSTGRES_DB')
 
 # Read in the data file that we need to insert
 df = pd.read_excel("./Data/Cleaned_Root_letters.xlsx")
@@ -89,20 +99,14 @@ for index, row in TextToWords_df.iterrows():
     else:
         pass
 
-try:         
-    # Define DB connection parameters 
-    dbHost = '127.0.0.1'
-    dbPort = 5434
-    dbUser = 'qj'
-    dbPassword= 'Yatathakar123!'
-    dbName = 'quranJourney'
+try:
 
     # connect to the PostgreSQL database
-    connection = psycopg2.connect(user=dbUser,
-                              password=dbPassword,
-                              host=dbHost,
-                              port=dbPort,
-                              database=dbName)
+    connection = psycopg2.connect(user=PG_USER,
+                              password=PG_PASSWORD,
+                              host=PG_HOST,
+                              port=PG_PORT,
+                              database=PG_DB)
     cursor = connection.cursor()
 
 except (Exception, Error) as error:
