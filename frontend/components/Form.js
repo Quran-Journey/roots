@@ -62,7 +62,7 @@ export default function Form() {
                 />
             </Box>
 
-            <Box display="flex" justifyContent="center" pt={5} pb={3}>
+            {/* <Box display="flex" justifyContent="center" pt={5} pb={3}>
                 <Button
                     type="submit"
                     variant="contained"
@@ -71,9 +71,9 @@ export default function Form() {
                 >
                     Find Root
                 </Button>
-            </Box>
+            </Box> */}
 
-            {showRootWords && verses[verseNumber] ? (
+            {verses[verseNumber] ? (
                 <Grid
                     container
                     direction="row"

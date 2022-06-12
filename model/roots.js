@@ -47,7 +47,7 @@ async function getVerseRootWords(data) {
         sql,
         params,
         new utils.Message({
-            success: `Successfully fetched verses for sura number ${data.sura_number}.`,
+            success: `Successfully fetched roots for verse with id ${data.verse_id}.`,
         })
     );
 }

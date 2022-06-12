@@ -44,7 +44,7 @@ export default function RootWordsDisplay(props) {
                 <Grid item>
                     <Card
                         align="center"
-                        style={{ backgroundColor: "lightgrey" }}
+                        style={{ backgroundColor: "#77aa77" }}
                     >
                         <CardContent>
                             <Typography
