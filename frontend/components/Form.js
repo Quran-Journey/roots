@@ -15,7 +15,9 @@ export default function Form() {
 
     const handleVerseChange = (event) => {
         let index = event.target.value;
-        setVerse(verses[index].indexid);
+        console.log("Current Verse:")
+        console.log(index)
+        setVerse(verses[index].index);
     };
 
     React.useEffect(() => {
