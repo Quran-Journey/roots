@@ -10,9 +10,12 @@ export default function Form() {
     const [currentChapter, setChapter] = React.useState("");
     const [currentVerse, setVerse] = React.useState("");
     const [verseOptions, setVerseOptions] = React.useState("");
+    const [chapters, setChapters] = React.useState([]);
+    const [verses, setVerses] = React.useState([]);
 
     const handleVerseChange = (event) => {
-        setVerse(event.target.value);
+        let index = event.target.value;
+        setVerse(verses[index].indexid);
     };
 
     React.useEffect(() => {
@@ -30,8 +33,11 @@ export default function Form() {
             <Box display="flex" justifyContent="center">
                 <Chapter
                     currentChapter={currentChapter}
+                    chapters={chapters}
                     setVerse={setVerse}
                     setChapter={setChapter}
+                    setChapters={setChapters}
+                    setVerses={setVerses}
                     setVerseOptions={setVerseOptions}
                 />
 
@@ -71,16 +77,13 @@ export default function Form() {
                     </Grid>
 
                     <Grid item>
-                        <RootWordsDisplay
-                            currentChapter={currentChapter}
-                            currentVerse={currentVerse}
-                        />
+                        <RootWordsDisplay verse={verses[currentVerse]} />
                     </Grid>
 
                     <Grid item>
                         <NextButton
                             setVerse={setVerse}
-                            currentChapter={currentChapter}
+                            numberOfVerses={verses.length}
                             currentVerse={currentVerse}
                         />
                     </Grid>

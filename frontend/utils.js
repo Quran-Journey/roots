@@ -9,9 +9,10 @@ import axios from "axios";
 const API_URL = "http://localhost:3001/api";
 
 export async function apiGET(path) {
+    console.log(API_URL + path)
     return await axios
         .get(API_URL + path)
-        .done((res) => {
+        .then((res) => {
             console.log(res);
             return res;
         })

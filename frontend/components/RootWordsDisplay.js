@@ -8,19 +8,32 @@ import {
     CardContent,
     Grid,
 } from "@mui/material/";
-import {
-    getChapters,
-    getNumberofVerses,
-    getChapterVerses,
-    getVerse,
-    getRootWords,
-    getChapterName,
-} from ".././mockAPI";
+import { apiGET } from "../utils";
 
 export default function RootWordsDisplay(props) {
-    let root_words_arr = getRootWords(props.currentChapter, props.currentVerse);
+    const [roots, setRoots] = React.useState([]);
+
+    React.useEffect(() => {
+        getRoots();
+    }, []);
+
+    const getRoots = async () => {
+        let chapters_res = await apiGET(`/verse/${props.verse}`)
+            .then((response) => {
+                console.log("Fetched chapters");
+                console.log(response);
+                return response;
+            })
+            .catch((err) => {
+                return err;
+            });
+        if (chapters_res && chapters_res.data) {
+            setRoots(chapters_res.data.data);
+        }
+    };
+
     let b = {};
-    for (const key in root_words_arr) {
+    for (const key in roots) {
         let boxes = [];
         boxes.push(
             <Grid container pb={2}>
@@ -58,10 +71,7 @@ export default function RootWordsDisplay(props) {
                                 Verse
                             </Typography>
                             <Typography variant="h5" component="div" pb={2}>
-                                {getVerse(
-                                    props.currentChapter,
-                                    props.currentVerse
-                                )}
+                                {props.verse}
                             </Typography>
                             <Grid container pb={2}>
                                 <Grid item xs={6}>

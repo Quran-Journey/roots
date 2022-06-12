@@ -21,7 +21,7 @@ export default function NextButton(props) {
             <Button
                 disabled={
                     props.currentVerse ==
-                    getNumberofVerses(props.currentChapter)
+                    props.numberOfVerses
                 }
                 type="submit"
                 variant="contained"

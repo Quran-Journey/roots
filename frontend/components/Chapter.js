@@ -2,24 +2,44 @@ import * as React from "react";
 import { getVerseOptions } from "./Verse";
 import { FormHelperText, FormControl, Select, MenuItem } from "@mui/material/";
 import { InputLabel } from "@mui/material/";
-import { getChapter } from ".././mockAPI";
+import { apiGET } from "../utils";
 
 export default function Chapter(props) {
-    const handleChapterChange = (event) => {
+
+    const handleChapterChange = async (event) => {
         props.setVerse === "";
         props.setVerseOptions === "";
         props.setChapter(event.target.value);
-        let ver = getVerseOptions(event.target.value);
+        let ver = await getVerseOptions(event.target.value, props.setVerses);
         let verse_options = Object.keys(ver).map((c) => {
             return ver[c].verse_list;
         });
         props.setVerseOptions(verse_options);
     };
 
+    React.useEffect(() => {
+        getChapters();
+    }, []);
+
+    const getChapters = async () => {
+        let chapters_res = await apiGET("/chapters")
+            .then((response) => {
+                console.log("Fetched chapters");
+                console.log(response);
+                return response;
+            })
+            .catch((err) => {
+                return err;
+            });
+        if (chapters_res && chapters_res.data) {
+            props.setChapters(chapters_res.data.data);
+        }
+    };
+
     let chapt = {};
-    for (var i = 1; i <= 3; i++) {
+    for (var i = 1; i < props.chapters.length + 1; i++) {
         //replace 3 by 114 when API completed
-        let name = getChapter(i).name;
+        let name = props.chapters[i - 1].sura_name;
         let chapt_list = [];
         chapt_list.push(
             <MenuItem key={i} value={i}>

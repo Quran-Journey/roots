@@ -1,25 +1,26 @@
 import * as React from "react";
 import { FormHelperText, FormControl, Select, MenuItem } from "@mui/material/";
-import {
-    InputLabel,
-    Button,
-    Typography,
-    Box,
-    Card,
-    CardContent,
-    Grid,
-} from "@mui/material/";
-import {
-    getChapter,
-    getNumberofVerses,
-    getChapterVerses,
-    getVerse,
-    getRootWords,
-} from ".././mockAPI";
+import { InputLabel } from "@mui/material/";
+import { apiGET } from "../utils";
 
-export function getVerseOptions(chapter) {
-    let verses = {};
-    let verse_count = getNumberofVerses(chapter);
+export async function getVerseOptions(chapter, setVerses) {
+    const getVerses = async () => {
+        let verses_res = await apiGET(`/chapter/${chapter}`)
+            .then((response) => {
+                console.log("Fetched verses");
+                console.log(response);
+                return response;
+            })
+            .catch((err) => {
+                return err;
+            });
+        if (verses_res && verses_res.data) {
+            setVerses(verses_res.data.data)
+            return verses_res.data.data;
+        }
+    };
+    let verses = await getVerses();
+    let verse_count = verses.length;
     for (var i = 1; i <= verse_count; i++) {
         let verse_list = [];
         verse_list.push(

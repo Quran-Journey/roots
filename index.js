@@ -1,9 +1,9 @@
+require("dotenv");
 const https = require("https");
 const fs = require("fs");
 const express = require("express");
 const bodyParser = require("body-parser");
 const roots = require("./routes/roots");
-require("dotenv").config();
 
 var port = 3001;
 
