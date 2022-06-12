@@ -7,7 +7,6 @@ import NextButton from "./NextButton";
 import PrevButton from "./PrevButton";
 import { getRoots } from "../utils";
 
-
 export default function Form() {
     const [currentChapter, setChapter] = React.useState("");
     const [verseNumber, setVerseNumber] = React.useState("");
@@ -22,9 +21,9 @@ export default function Form() {
         console.log(index);
         console.log("Verses:");
         console.log(verses);
-        
+
         setVerseNumber(index - 1);
-        getRoots(setRoots, index - 1)
+        getRoots(setRoots, index);
     };
 
     React.useEffect(() => {
@@ -36,9 +35,9 @@ export default function Form() {
     const onClickFindRoot = () => {
         if (verseNumber != "") {
             setShowRootWords(true);
+            console.log(verses[verseNumber].index);
+            getRoots(setRoots, verses[verseNumber]);
         }
-        console.log(verses[verseNumber].index)
-        getRoots(setRoots, verses[verseNumber])
     };
 
     return (
