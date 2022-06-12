@@ -25,9 +25,9 @@ export async function apiGET(path) {
 }
 
 export async function getRoots(setRoots, verse) {
-    // let v;
-    // verse.index == 1 ? (v = 0) : (v = verse.index);
-    let roots_res = await apiGET(`/verse/${verse.index}`)
+    let v;
+    Number.isInteger(verse) ? (v = verse) : (v = verse.index);
+    let roots_res = await apiGET(`/verse/${v}`)
         .then((response) => {
             return response;
         })

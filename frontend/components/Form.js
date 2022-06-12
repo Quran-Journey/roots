@@ -37,6 +37,8 @@ export default function Form() {
         if (verseNumber != "") {
             setShowRootWords(true);
         }
+        console.log(verses[verseNumber].index)
+        getRoots(setRoots, verses[verseNumber])
     };
 
     return (
@@ -72,7 +74,7 @@ export default function Form() {
                 </Button>
             </Box>
 
-            {showRootWords ? (
+            {showRootWords && verses[verseNumber] ? (
                 <Grid
                     container
                     direction="row"

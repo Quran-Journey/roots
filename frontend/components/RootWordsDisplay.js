@@ -38,7 +38,6 @@ export default function RootWordsDisplay(props) {
     let box_display = Object.keys(b).map((c) => {
         return b[c].boxes;
     });
-
     return (
         <div>
             <Grid container direction="column">
