@@ -7,9 +7,8 @@ import { apiGET } from "../utils";
 export default function Chapter(props) {
 
     const handleChapterChange = async (event) => {
-        props.setVerse === "";
-        props.setVerseOptions === "";
         props.setChapter(event.target.value);
+        props.setVerseNumber("");
         let ver = await getVerseOptions(event.target.value, props.setVerses);
         let verse_options = Object.keys(ver).map((c) => {
             return ver[c].verse_list;
@@ -24,8 +23,6 @@ export default function Chapter(props) {
     const getChapters = async () => {
         let chapters_res = await apiGET("/chapters")
             .then((response) => {
-                console.log("Fetched chapters");
-                console.log(response);
                 return response;
             })
             .catch((err) => {
@@ -38,7 +35,6 @@ export default function Chapter(props) {
 
     let chapt = {};
     for (var i = 1; i < props.chapters.length + 1; i++) {
-        //replace 3 by 114 when API completed
         let name = props.chapters[i - 1].sura_name;
         let chapt_list = [];
         chapt_list.push(

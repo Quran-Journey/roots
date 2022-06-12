@@ -5,29 +5,38 @@ import Chapter from "./Chapter";
 import Verse from "./Verse";
 import NextButton from "./NextButton";
 import PrevButton from "./PrevButton";
+import { getRoots } from "../utils";
+
 
 export default function Form() {
     const [currentChapter, setChapter] = React.useState("");
-    const [currentVerse, setVerse] = React.useState("");
+    const [verseNumber, setVerseNumber] = React.useState("");
     const [verseOptions, setVerseOptions] = React.useState("");
     const [chapters, setChapters] = React.useState([]);
     const [verses, setVerses] = React.useState([]);
+    const [roots, setRoots] = React.useState([]);
 
     const handleVerseChange = (event) => {
         let index = event.target.value;
-        console.log("Current Verse:")
-        console.log(index)
-        setVerse(verses[index].index);
+        console.log("Current Verse:");
+        console.log(index);
+        console.log("Verses:");
+        console.log(verses);
+        
+        setVerseNumber(index - 1);
+        getRoots(setRoots, index - 1)
     };
 
     React.useEffect(() => {
-        currentChapter === "" ? setVerse("") : handleVerseChange;
+        currentChapter === "" ? setVerseNumber("") : handleVerseChange;
     });
 
     //Find Root Button Action
     const [showRootWords, setShowRootWords] = React.useState(false);
     const onClickFindRoot = () => {
-        setShowRootWords(true);
+        if (verseNumber != "") {
+            setShowRootWords(true);
+        }
     };
 
     return (
@@ -36,7 +45,7 @@ export default function Form() {
                 <Chapter
                     currentChapter={currentChapter}
                     chapters={chapters}
-                    setVerse={setVerse}
+                    setVerseNumber={setVerseNumber}
                     setChapter={setChapter}
                     setChapters={setChapters}
                     setVerses={setVerses}
@@ -45,8 +54,8 @@ export default function Form() {
 
                 <Verse
                     currentChapter={currentChapter}
-                    currentVerse={currentVerse}
-                    setVerse={setVerse}
+                    verseNumber={verseNumber}
+                    setVerseNumber={setVerseNumber}
                     verseOptions={verseOptions}
                     handleVerseChange={handleVerseChange}
                 />
@@ -73,20 +82,28 @@ export default function Form() {
                 >
                     <Grid item>
                         <PrevButton
-                            setVerse={setVerse}
-                            currentVerse={currentVerse}
+                            setVerseNumber={setVerseNumber}
+                            verseNumber={verseNumber}
+                            verses={verses}
+                            setRoots={setRoots}
                         />
                     </Grid>
 
                     <Grid item>
-                        <RootWordsDisplay verse={verses[currentVerse]} />
+                        <RootWordsDisplay
+                            verse={verses[verseNumber]}
+                            setRoots={setRoots}
+                            roots={roots}
+                        />
                     </Grid>
 
                     <Grid item>
                         <NextButton
-                            setVerse={setVerse}
+                            setVerseNumber={setVerseNumber}
                             numberOfVerses={verses.length}
-                            currentVerse={currentVerse}
+                            verseNumber={verseNumber}
+                            verses={verses}
+                            setRoots={setRoots}
                         />
                     </Grid>
                 </Grid>

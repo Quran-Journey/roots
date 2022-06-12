@@ -7,8 +7,6 @@ export async function getVerseOptions(chapter, setVerses) {
     const getVerses = async () => {
         let verses_res = await apiGET(`/chapter/${chapter}`)
             .then((response) => {
-                console.log("Fetched verses");
-                console.log(response);
                 return response;
             })
             .catch((err) => {
@@ -41,7 +39,7 @@ export default function Verse(props) {
                 <Select
                     labelId="verse-select-required-label"
                     id="verse-select-required"
-                    value={props.currentVerse}
+                    value={Number.isInteger(props.verseNumber) ? props.verseNumber + 1 : props.verseNumber}
                     label="Verse"
                     onChange={props.handleVerseChange}
                 >

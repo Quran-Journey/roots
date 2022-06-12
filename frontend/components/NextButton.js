@@ -10,19 +10,20 @@ import {
     IconButton,
 } from "@mui/material/";
 import { getNumberofVerses } from ".././mockAPI";
+import { getRoots } from "../utils";
 
 export default function NextButton(props) {
     const getNextVerse = () => {
-        props.setVerse(props.currentVerse + 1);
+        if (props.verseNumber < props.numberOfVerses) {
+            props.setVerseNumber(props.verseNumber + 1);
+            getRoots(props.setRoots, props.verses[props.verseNumber + 1]);
+        }
     };
 
     return (
         <div>
             <Button
-                disabled={
-                    props.currentVerse ==
-                    props.numberOfVerses
-                }
+                disabled={props.verseNumber >= props.numberOfVerses - 1}
                 type="submit"
                 variant="contained"
                 color="inherit"

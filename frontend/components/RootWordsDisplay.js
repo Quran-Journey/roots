@@ -8,36 +8,19 @@ import {
     CardContent,
     Grid,
 } from "@mui/material/";
-import { apiGET } from "../utils";
+import { getRoots } from "../utils";
 
 export default function RootWordsDisplay(props) {
-    const [roots, setRoots] = React.useState([]);
-
+    let roots = props.roots;
     React.useEffect(() => {
-        getRoots();
+        getRoots(props.setRoots, props.verse);
     }, []);
-
-    const getRoots = async () => {
-        let chapters_res = await apiGET(`/verse/${props.verse.index}`)
-            .then((response) => {
-                console.log("Fetched chapters");
-                console.log(response);
-                return response;
-            })
-            .catch((err) => {
-                return err;
-            });
-        if (chapters_res && chapters_res.data) {
-            console.log(chapters_res.data.data);
-            setRoots(chapters_res.data.data);
-        }
-    };
 
     let b = {};
     for (var r = 0; r < roots.length; r++) {
         let boxes = [];
         boxes.push(
-            <Grid container pb={10}>
+            <Grid key={r} container pb={10}>
                 <Grid item xs={4}>
                     <Typography sx={{ fontSize: 16 }}>{roots[r].word}</Typography>
                 </Grid>
@@ -83,7 +66,7 @@ export default function RootWordsDisplay(props) {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <Typography variant="outline">
-                                        Root of Word
+                                        Root
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={4}>
