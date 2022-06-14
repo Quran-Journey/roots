@@ -30,7 +30,7 @@ export default function NextButton(props) {
                 onClick={getNextVerse}
             >
                 Next Verse
-                <IconButton className=" fa-solid fa-angle-right"></IconButton>
+                {/* <IconButton className=" fa-solid fa-angle-right"></IconButton> */}
             </Button>
         </div>
     );

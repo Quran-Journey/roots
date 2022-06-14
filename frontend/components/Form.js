@@ -31,17 +31,17 @@ export default function Form() {
     });
 
     //Find Root Button Action
-    const [showRootWords, setShowRootWords] = React.useState(false);
-    const onClickFindRoot = () => {
-        if (verseNumber != "") {
-            setShowRootWords(true);
-            console.log(verses[verseNumber].index);
-            getRoots(setRoots, verses[verseNumber]);
-        }
-    };
+    // const [showRootWords, setShowRootWords] = React.useState(false);
+    // const onClickFindRoot = () => {
+    //     if (verseNumber != "") {
+    //         setShowRootWords(true);
+    //         console.log(verses[verseNumber].index);
+    //         getRoots(setRoots, verses[verseNumber]);
+    //     }
+    // };
 
     return (
-        <div>
+        <div className="Form">
             <Box display="flex" justifyContent="center">
                 <Chapter
                     currentChapter={currentChapter}
@@ -62,17 +62,6 @@ export default function Form() {
                 />
             </Box>
 
-            {/* <Box display="flex" justifyContent="center" pt={5} pb={3}>
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="inherit"
-                    onClick={onClickFindRoot}
-                >
-                    Find Root
-                </Button>
-            </Box> */}
-
             {verses[verseNumber] ? (
                 <Grid
                     container
@@ -91,10 +80,29 @@ export default function Form() {
                     </Grid>
 
                     <Grid item>
+                        <NextButton
+                            setVerseNumber={setVerseNumber}
+                            numberOfVerses={verses.length}
+                            verseNumber={verseNumber}
+                            verses={verses}
+                            setRoots={setRoots}
+                        />
+                    </Grid>
+
+                    <Grid item>
                         <RootWordsDisplay
                             verse={verses[verseNumber]}
                             setRoots={setRoots}
                             roots={roots}
+                        />
+                    </Grid>
+
+                    <Grid item>
+                        <PrevButton
+                            setVerseNumber={setVerseNumber}
+                            verseNumber={verseNumber}
+                            verses={verses}
+                            setRoots={setRoots}
                         />
                     </Grid>
 

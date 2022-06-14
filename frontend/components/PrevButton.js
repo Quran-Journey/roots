@@ -23,7 +23,7 @@ export default function NextButton(props) {
                 color="inherit"
                 onClick={getPrevVerse}
             >
-                <IconButton className=" fa-solid fa-angle-left"></IconButton>
+                {/* <IconButton className=" fa-solid fa-angle-left"></IconButton> */}
                 Prev Verse
             </Button>
         </div>
