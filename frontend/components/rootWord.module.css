@@ -1,0 +1,24 @@
+.root_grid_items {
+    background: #eeeeee;
+    border-radius: 4px;
+    margin: 0px 1px;
+    padding: 20px;
+    /* justify-content: center; */
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.roots {
+    padding: 10px 0px;
+    justify-content: center;
+    text-align: center;
+}
+
+.stuff {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}

@@ -1,42 +1,71 @@
-import * as React from 'react';
-import {InputLabel, Button, Typography, Box, Card, CardContent, Grid} from '@mui/material/';
-import { getChapters, getNumberofVerses, getChapterVerses, getVerse, getRootWords, getChapterName} from ".././mockAPI";
+import * as React from "react";
+import {
+    InputLabel,
+    Button,
+    Typography,
+    Box,
+    Card,
+    CardContent,
+    Grid,
+} from "@mui/material/";
+import { getRoots } from "../utils";
+import styles from "./rootWord.module.css";
 
 export default function RootWordsDisplay(props) {
-    let root_words_arr = getRootWords(props.currentChapter, props.currentVerse)    
-    let b = {}
-    for (const key in root_words_arr) {
+    let roots = props.roots;
+    React.useEffect(() => {
+        getRoots(props.setRoots, props.verse);
+    }, []);
+
+    let b = {};
+    for (var r = 0; r < roots.length; r++) {
         let boxes = [];
         boxes.push(
-        <Grid container pb={2}>
-        <Grid item xs={6}><Typography sx={{ fontSize: 16}}>{key}</Typography></Grid>
-        <Grid item xs={6}><Typography sx={{ fontSize: 16}}>{root_words_arr[key]} </Typography></Grid>
-        </Grid>);
-        b[`box_${key}`] = {boxes};
+            <Grid key={r} className={styles.roots} container pb={1}>
+                <Grid item xs={1} className={styles.root_grid_items}>
+                    <Typography className={styles.stuff} sx={{ fontSize: 25 }}>
+                        {roots[r].word}
+                    </Typography>
+                </Grid>
+                <Grid item xs={1} className={styles.root_grid_items}>
+                    <Typography className={styles.stuff} sx={{ fontSize: 25 }}>
+                        {roots[r].rootword}{" "}
+                    </Typography>
+                </Grid>
+                <Grid item xs={6} className={styles.root_grid_items}>
+                    <Typography sx={{ fontSize: 20 }}>
+                        {roots[r].meanings}{" "}
+                    </Typography>
+                </Grid>
+            </Grid>
+        );
+        b[`box_${r}`] = { boxes };
     }
 
-    let box_display = Object.keys(b).map((c) => { return b[c].boxes; }); 
-
+    let box_display = Object.keys(b).map((c) => {
+        return b[c].boxes;
+    });
     return (
-    <div>
-    <Grid container direction="column">
-      <Grid item>  
-        <Card align= "center" style={{backgroundColor: "lightgrey"}}>
-          <CardContent>
-           
-            <Typography sx={{ fontSize: 14}} component="div" pb={1}>Verse</Typography>
-            <Typography variant="h5" component="div" pb={2}>{getVerse(props.currentChapter, props.currentVerse)}</Typography>
-            <Grid container pb={2}>
-            <Grid item xs={6}><Typography variant="outline">Word</Typography></Grid>
-            <Grid item xs={6}><Typography variant="outline">Root of Word</Typography></Grid>
+        <div>
+            <Grid container direction="column">
+                <Grid item className={styles.roots}>
+                    <Typography variant="h5" component="div" pb={1}>
+                        {props.verse.text}
+                    </Typography>
+                    <Grid container pb={1} className={styles.roots}>
+                        <Grid item xs={1} className={styles.root_grid_items}>
+                            <Typography variant="outline">Word</Typography>
+                        </Grid>
+                        <Grid item xs={1} className={styles.root_grid_items}>
+                            <Typography variant="outline">Root</Typography>
+                        </Grid>
+                        <Grid item xs={6} className={styles.root_grid_items}>
+                            <Typography variant="outline">Meanings</Typography>
+                        </Grid>
+                    </Grid>
+                    {box_display}
+                </Grid>
             </Grid>
-
-            {box_display}
-           
-          </CardContent>
-        </Card>
-        </Grid>
-    </Grid>
-    </div>
+        </div>
     );
 }

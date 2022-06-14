@@ -1,56 +1,122 @@
-import * as React from 'react';
-import {InputLabel, Button, Typography, Box, Card, CardContent, Grid, IconButton} from '@mui/material/';
+import * as React from "react";
+import { Button, Box, Grid } from "@mui/material/";
 import RootWordsDisplay from "./RootWordsDisplay";
 import Chapter from "./Chapter";
 import Verse from "./Verse";
-import NextButton from "./NextButton"
-import PrevButton from "./PrevButton"
+import NextButton from "./NextButton";
+import PrevButton from "./PrevButton";
+import { getRoots } from "../utils";
 
+export default function Form() {
+    const [currentChapter, setChapter] = React.useState("");
+    const [verseNumber, setVerseNumber] = React.useState("");
+    const [verseOptions, setVerseOptions] = React.useState("");
+    const [chapters, setChapters] = React.useState([]);
+    const [verses, setVerses] = React.useState([]);
+    const [roots, setRoots] = React.useState([]);
 
-export default function Form() { 
-  const [currentChapter, setChapter] = React.useState('')
-  const [currentVerse, setVerse] = React.useState('');
-  const [verseOptions, setVerseOptions] = React.useState('');
+    const handleVerseChange = (event) => {
+        let index = event.target.value;
+        console.log("Current Verse:");
+        console.log(index);
+        console.log("Verses:");
+        console.log(verses);
 
-  const handleVerseChange = (event) => {
-    setVerse(event.target.value)
-  };
+        setVerseNumber(index - 1);
+        getRoots(setRoots, index);
+    };
 
-  React.useEffect(() => {(currentChapter === '') ? setVerse('') : handleVerseChange})
+    React.useEffect(() => {
+        currentChapter === "" ? setVerseNumber("") : handleVerseChange;
+    });
 
-  //Find Root Button Action
-  const [showRootWords, setShowRootWords] = React.useState(false)
-  const onClickFindRoot = () => {setShowRootWords(true)}
+    //Find Root Button Action
+    // const [showRootWords, setShowRootWords] = React.useState(false);
+    // const onClickFindRoot = () => {
+    //     if (verseNumber != "") {
+    //         setShowRootWords(true);
+    //         console.log(verses[verseNumber].index);
+    //         getRoots(setRoots, verses[verseNumber]);
+    //     }
+    // };
 
+    return (
+        <div className="Form">
+            <Box display="flex" justifyContent="center">
+                <Chapter
+                    currentChapter={currentChapter}
+                    chapters={chapters}
+                    setVerseNumber={setVerseNumber}
+                    setChapter={setChapter}
+                    setChapters={setChapters}
+                    setVerses={setVerses}
+                    setVerseOptions={setVerseOptions}
+                />
 
-  return (
-  <div>
-    <Box display="flex" justifyContent="center">  
+                <Verse
+                    currentChapter={currentChapter}
+                    verseNumber={verseNumber}
+                    setVerseNumber={setVerseNumber}
+                    verseOptions={verseOptions}
+                    handleVerseChange={handleVerseChange}
+                />
+            </Box>
 
-      <Chapter currentChapter={currentChapter} setVerse={setVerse} setChapter={setChapter} setVerseOptions={setVerseOptions}/>
+            {verses[verseNumber] ? (
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    display="inline-flex"
+                >
+                    <Grid item>
+                        <PrevButton
+                            setVerseNumber={setVerseNumber}
+                            verseNumber={verseNumber}
+                            verses={verses}
+                            setRoots={setRoots}
+                        />
+                    </Grid>
 
-      <Verse currentChapter={currentChapter} currentVerse={currentVerse} setVerse={setVerse} verseOptions={verseOptions} handleVerseChange={handleVerseChange}/>
+                    <Grid item>
+                        <NextButton
+                            setVerseNumber={setVerseNumber}
+                            numberOfVerses={verses.length}
+                            verseNumber={verseNumber}
+                            verses={verses}
+                            setRoots={setRoots}
+                        />
+                    </Grid>
 
-    </Box>
+                    <Grid item>
+                        <RootWordsDisplay
+                            verse={verses[verseNumber]}
+                            setRoots={setRoots}
+                            roots={roots}
+                        />
+                    </Grid>
 
-    <Box display="flex" justifyContent="center" pt={5} pb={3}>
-      <Button type="submit" variant="contained" color="inherit" onClick={onClickFindRoot}> 
-      Find Root</Button>
-    </Box>
+                    <Grid item>
+                        <PrevButton
+                            setVerseNumber={setVerseNumber}
+                            verseNumber={verseNumber}
+                            verses={verses}
+                            setRoots={setRoots}
+                        />
+                    </Grid>
 
-    { showRootWords ? <Grid container direction="row" justifyContent="center" alignItems="center" display="inline-flex">
-
-      <Grid item><PrevButton setVerse={setVerse} currentVerse={currentVerse}/></Grid>
-
-      <Grid item><RootWordsDisplay currentChapter={currentChapter} currentVerse={currentVerse} /></Grid> 
-
-      <Grid item><NextButton setVerse={setVerse} currentChapter = {currentChapter} currentVerse={currentVerse}/></Grid>
-
-    </Grid> : null } 
-    
-
-  </div>
-
-  );
+                    <Grid item>
+                        <NextButton
+                            setVerseNumber={setVerseNumber}
+                            numberOfVerses={verses.length}
+                            verseNumber={verseNumber}
+                            verses={verses}
+                            setRoots={setRoots}
+                        />
+                    </Grid>
+                </Grid>
+            ) : null}
+        </div>
+    );
 }
-  
