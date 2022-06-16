@@ -22,7 +22,7 @@ app.use(async (req, res, next) => {
 app.use("/api", roots);
 
 app.use(express.static(path.join(__dirname, '/docs')));
-app.route("/docs").get((req, res) => {
+app.route("/").get((req, res) => {
     res.sendFile(path.join(__dirname + "/docs/index.html"));
 });
 
