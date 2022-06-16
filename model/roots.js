@@ -1,5 +1,21 @@
 const utils = require("./utils");
 
+/**
+ *  @schema Chapter
+ *  type: object
+ *  required:
+ *      - sura_number
+ *      - sura_name
+ *  properties:
+ *      sura_number:
+ *          type: integer
+ *          description: the number of the surah (acting as the surah id)
+ *          example: 1
+ *      sura_name:
+ *          type: string
+ *          description: the name of the surah
+ *          example: al-Fātihah
+ */
 async function getChapters(data) {
     let sql = "SELECT * FROM suras";
     return await utils.retrieve(
@@ -11,6 +27,32 @@ async function getChapters(data) {
     );
 }
 
+/**
+ *  @schema Verse
+ *  type: object
+ *  required:
+ *      - index
+ *      - sura
+ *      - aya
+ *      - text
+ *  properties:
+ *      index:
+ *          type: integer
+ *          description: the index of the verse in the quran
+ *          example: 1
+ *      sura:
+ *          type: integer
+ *          description: the sura id/number that the verse belongs to
+ *          example: 1
+ *      aya:
+ *          type: integer
+ *          description: the aya number within the surah
+ *          example: 1
+ *      text:
+ *          type: string
+ *          description: the text representation of the verse
+ *          example: بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ
+ */
 async function getChapterVerses(data) {
     var invalid = utils.simpleValidation(data, {
         sura_number: "integer",
@@ -33,6 +75,42 @@ async function getChapterVerses(data) {
     return verses;
 }
 
+/**
+ *  @schema RootWord
+ *  type: object
+ *  required:
+ *      - indexid
+ *      - wordid
+ *      - word
+ *      - rootid
+ *      - rootword
+ *      - meanings
+ *  properties:
+ *      indexid:
+ *          type: Integer
+ *          description: the index of the verse in the quran
+ *          example: 1
+ *      wordid:
+ *          type: integer
+ *          description: the id pertaining to a specific word in the verse
+ *          example: 2000
+ *      word:
+ *          type: string
+ *          description: a specific word in the verse
+ *          example: بِسْمِ
+ *      rootid:
+ *          type: integer
+ *          description: the id of the root word associated with the specific word in the verse
+ *          example: 936
+ *      rootword:
+ *          type: integer
+ *          description: string representaiton of the root word with spaces in between each letter.
+ *          example: س م و
+ *      meanings:
+ *          type: string
+ *          description: the meanings associated with the root word
+ *          example: to be high/lofty, raised, name, attribute. samawat - heights/heavens/rain, raining clouds. ismun - mark of identification by which one is recognised. It is a derivation of wsm (pl. asma). ism - stands for a distinguishing mark of a thing, sometimes said to signify its reality.
+ */
 async function getVerseRootWords(data) {
     var invalid = utils.simpleValidation(data, {
         verse_id: "integer",

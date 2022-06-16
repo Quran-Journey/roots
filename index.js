@@ -5,6 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const roots = require("./routes/roots");
 const cors = require("cors");
+const path = require("path");
 
 var port = 3001;
 
@@ -19,6 +20,11 @@ app.use(async (req, res, next) => {
 });
 
 app.use("/api", roots);
+
+app.use(express.static(path.join(__dirname, '/docs')));
+app.route("/").get((req, res) => {
+    res.sendFile(path.join(__dirname + "/docs/index.html"));
+});
 
 if (process.env.NODE_ENV == "production") {
     // This sets the options for https so that it finds the ssl certificates
