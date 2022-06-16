@@ -1,0 +1,13 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "x-logo": {
+            "altText": "Quran Journey",
+            "url": "./assets/img/qjLogo.png"
+        },
+        "title": "Quran Journey API"
+    },
+    "host": "localhost",
+    "basePath": "/api",
+    "schemes": ["http"]
+}
