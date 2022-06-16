@@ -5,7 +5,7 @@
             "altText": "Quran Journey",
             "url": "./assets/img/qjLogo.png"
         },
-        "title": "Quran Journey API"
+        "title": "Quran Journey Roots API"
     },
     "host": "localhost",
     "basePath": "/api",
