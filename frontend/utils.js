@@ -6,12 +6,12 @@ import axios from "axios";
 // If the server responds with an error status code (anything 400+), then we will hit .catch
 // and the response the server sent us will be inside err.responseJSON
 
-const API_URL = "http://localhost:3001/api";
+export const API_URL = "http://localhost:3001";
 
 export async function apiGET(path) {
-    console.log(API_URL + path);
+    console.log(API_URL + "/api" + path);
     return await axios
-        .get(API_URL + path)
+        .get(API_URL + "/api" + path)
         .then((res) => {
             console.log(res);
             return res;

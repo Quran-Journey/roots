@@ -7,6 +7,7 @@ import {
     Grid,
 } from "@mui/material";
 import Script from "next/script";
+import { API_URL } from "../utils";
 
 export default function Navbar() {
     return (
@@ -52,7 +53,7 @@ export default function Navbar() {
                             </IconButton>
                             <IconButton>
                                 <a
-                                    href=""
+                                    href={API_URL}
                                     className="fa-solid fa-file-code"
                                 ></a>
                             </IconButton>
