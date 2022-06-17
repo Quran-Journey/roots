@@ -1,4 +1,5 @@
 const utils = require("./utils");
+const meaning = require("./root_meanings");
 
 /**
  *  @schema Chapter
@@ -129,6 +130,10 @@ async function getVerseRootWords(data) {
         })
     );
 }
+
+
+
+
 
 module.exports = {
     getChapterVerses,
