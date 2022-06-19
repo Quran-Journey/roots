@@ -4,16 +4,16 @@
     margin: 0px 1px;
     padding: 20px;
     /* justify-content: center; */
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    align-items: center !important;
 }
 
 .roots {
     padding: 10px 0px;
-    justify-content: center;
-    text-align: center;
+    justify-content: center !important;
+    text-align: center !important;
 }
 
 .stuff {
