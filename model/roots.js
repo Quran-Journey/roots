@@ -1,5 +1,4 @@
 const utils = require("./utils");
-const meaning = require("./root_meanings");
 
 /**
  *  @schema Chapter
@@ -130,13 +129,31 @@ async function getVerseRootWords(data) {
         })
     );
 }
-
-
-
+async function getRootsMeaning(data){
+    const sentences = [];
+    var all_roots = getVerseRootWords(data);
+    for (let root of all_roots){
+        let word = root.word                //get the word of the root (idk how to access the variable)
+        let rootmeaning = root.description  //get the meaning of the root  (idk how to access the variable)
+        let sentence  = "The word" + word + "comes from the root" + root + "and is associated with the meanings of:" + rootmeaning
+        sentences.push(sentence)
+    } 
+    var params = [data.verse_id];
+   
+    
+    return await utils.retrieve(
+        sentences,
+        params,
+        new utils.Message({
+            success: `Successfully formed sentences for all root words for verse with id ${data.verse_id}.`,
+        })
+    );
+}
 
 
 module.exports = {
     getChapterVerses,
     getChapters,
     getVerseRootWords,
+    getRootsMeaning
 };
