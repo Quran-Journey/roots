@@ -88,7 +88,6 @@ export default function Form() {
                             setRoots={setRoots}
                         />
                     </Grid>
-
                     <Grid item>
                         <RootWordsDisplay
                             verse={verses[verseNumber]}

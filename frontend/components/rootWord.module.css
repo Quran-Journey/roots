@@ -4,7 +4,8 @@
     margin: 0px 1px;
     padding: 20px;
     /* justify-content: center; */
-    display: flex !important;
+    box-sizing: content-box;
+    display: flex;
     flex-direction: column !important;
     text-align: center !important;
     align-items: center !important;
