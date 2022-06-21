@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Box, Grid } from "@mui/material/";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import RootWordsDisplay from "./RootWordsDisplay";
 import Chapter from "./Chapter";
 import Verse from "./Verse";
@@ -17,10 +18,6 @@ export default function Form() {
 
     const handleVerseChange = (event) => {
         let index = event.target.value;
-        console.log("Current Verse:");
-        console.log(index);
-        console.log("Verses:");
-        console.log(verses);
 
         setVerseNumber(index - 1);
         getRoots(setRoots, index);

@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Typography, Grid } from "@mui/material/";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import CopySentences from "./CopySentences";
 import { getRoots } from "../utils";
 import styles from "./rootWord.module.css";

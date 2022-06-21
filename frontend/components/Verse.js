@@ -1,6 +1,9 @@
 import * as React from "react";
-import { FormHelperText, FormControl, Select, MenuItem } from "@mui/material/";
-import { InputLabel } from "@mui/material/";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
 import { apiGET } from "../utils";
 
 export async function getVerseOptions(chapter, setVerses) {
@@ -13,7 +16,7 @@ export async function getVerseOptions(chapter, setVerses) {
                 return err;
             });
         if (verses_res && verses_res.data) {
-            setVerses(verses_res.data.data)
+            setVerses(verses_res.data.data);
             return verses_res.data.data;
         }
     };
@@ -39,7 +42,11 @@ export default function Verse(props) {
                 <Select
                     labelId="verse-select-required-label"
                     id="verse-select-required"
-                    value={Number.isInteger(props.verseNumber) ? props.verseNumber + 1 : props.verseNumber}
+                    value={
+                        Number.isInteger(props.verseNumber)
+                            ? props.verseNumber + 1
+                            : props.verseNumber
+                    }
                     label="Verse"
                     onChange={props.handleVerseChange}
                 >

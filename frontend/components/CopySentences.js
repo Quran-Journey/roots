@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Button } from "@mui/material/";
-import { CopyAll, ContentCopy } from "@mui/icons-material";
+import Button from "@mui/material/Button";
+import CopyAllIcon from "@mui/icons-material/CopyAll";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { copy } from "../utils";
 
 export default function CopySentences(props) {
@@ -24,7 +25,7 @@ export default function CopySentences(props) {
             }}
             onClick={CopySentences}
         >
-            {props.copyAll ? <CopyAll></CopyAll> : <ContentCopy></ContentCopy>}
+            {props.copyAll ? <CopyAllIcon></CopyAllIcon> : <ContentCopyIcon></ContentCopyIcon>}
         </Button>
     );
 }
