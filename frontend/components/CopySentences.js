@@ -4,9 +4,7 @@ import { CopyAll, ContentCopy } from "@mui/icons-material";
 import { copy } from "../utils";
 
 export default function CopySentences(props) {
-    const CopySentences = async () => {
-        // Steps on how to move things to a clipboard:
-        // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    const CopySentences = () => {
         let text = "";
         for (let root of props.roots) {
             text = `${root.sentence}\n${text}`;

@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Button, Typography, Grid } from "@mui/material/";
+import { Typography, Grid } from "@mui/material/";
 import CopySentences from "./CopySentences";
 import { getRoots } from "../utils";
 import styles from "./rootWord.module.css";
-import { ContentCopy } from "@mui/icons-material";
 
 export default function RootWordsDisplay(props) {
     let roots = props.roots;

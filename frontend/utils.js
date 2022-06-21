@@ -40,5 +40,7 @@ export async function getRoots(setRoots, verse) {
 }
 
 export async function copy(text) {
+    // A comment from the source of this code states that we may only be able to do this in https sites:
+    // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
     navigator.clipboard.writeText(text);
 }

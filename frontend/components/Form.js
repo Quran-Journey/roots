@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Box, Grid } from "@mui/material/";
+import { Box, Grid } from "@mui/material/";
 import RootWordsDisplay from "./RootWordsDisplay";
 import Chapter from "./Chapter";
 import Verse from "./Verse";
@@ -29,16 +29,6 @@ export default function Form() {
     React.useEffect(() => {
         currentChapter === "" ? setVerseNumber("") : handleVerseChange;
     });
-
-    //Find Root Button Action
-    // const [showRootWords, setShowRootWords] = React.useState(false);
-    // const onClickFindRoot = () => {
-    //     if (verseNumber != "") {
-    //         setShowRootWords(true);
-    //         console.log(verses[verseNumber].index);
-    //         getRoots(setRoots, verses[verseNumber]);
-    //     }
-    // };
 
     return (
         <div className="Form">

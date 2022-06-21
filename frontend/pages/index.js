@@ -3,11 +3,8 @@ import { Typography, Grid } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Form from "../components/Form";
-// import { getChapters } from "../mockAPI";
 
 export default function Home() {
-    // let chapters = getChapters();
-    // console.log(chapters)
     return (
         <div>
             <Head>
