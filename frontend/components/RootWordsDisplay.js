@@ -39,18 +39,10 @@ export default function RootWordsDisplay(props) {
                         </Typography>
                     </Grid>
                     <Grid item md={1}>
-                        <Button
-                            size="small"
-                            edge="start"
-                            color="primary"
-                            style={{
-                                height: "100%",
-                                width: "100%",
-                                background: "#eeeeee",
-                            }}
-                        >
-                            <ContentCopy></ContentCopy>
-                        </Button>
+                        {/* Note that we're passing in roots[r].sentence in a list */}
+                        <CopySentences
+                            roots={[roots[r]]}
+                        ></CopySentences>
                     </Grid>
                 </Grid>
             </div>
@@ -79,7 +71,10 @@ export default function RootWordsDisplay(props) {
                             <Typography variant="outline">Meanings</Typography>
                         </Grid>
                         <Grid item xs={1}>
-                            <CopySentences></CopySentences>
+                            <CopySentences
+                                copyAll={true}
+                                roots={props.roots}
+                            ></CopySentences>
                         </Grid>
                     </Grid>
                     {box_display}

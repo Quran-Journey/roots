@@ -38,3 +38,7 @@ export async function getRoots(setRoots, verse) {
         setRoots(roots_res.data.data);
     }
 }
+
+export async function copy(text) {
+    navigator.clipboard.writeText(text);
+}
