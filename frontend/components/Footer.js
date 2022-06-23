@@ -1,4 +1,5 @@
-import { Typography, Grid } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
 export default function Footer() {
     return (

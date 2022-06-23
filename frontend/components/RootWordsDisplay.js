@@ -1,13 +1,7 @@
 import * as React from "react";
-import {
-    InputLabel,
-    Button,
-    Typography,
-    Box,
-    Card,
-    CardContent,
-    Grid,
-} from "@mui/material/";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import CopySentences from "./CopySentences";
 import { getRoots } from "../utils";
 import styles from "./rootWord.module.css";
 
@@ -21,23 +15,37 @@ export default function RootWordsDisplay(props) {
     for (var r = 0; r < roots.length; r++) {
         let boxes = [];
         boxes.push(
-            <Grid key={r} className={styles.roots} container pb={1}>
-                <Grid item xs={1} className={styles.root_grid_items}>
-                    <Typography className={styles.stuff} sx={{ fontSize: 25 }}>
-                        {roots[r].word}
-                    </Typography>
+            <div>
+                <Grid key={r} className={styles.roots} container pb={1}>
+                    <Grid item xs={1} className={styles.root_grid_items}>
+                        <Typography
+                            className={styles.stuff}
+                            sx={{ fontSize: 25 }}
+                        >
+                            {roots[r].word}
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={1} className={styles.root_grid_items}>
+                        <Typography
+                            className={styles.stuff}
+                            sx={{ fontSize: 25 }}
+                        >
+                            {roots[r].rootword}{" "}
+                        </Typography>
+                    </Grid>
+                    <Grid item md={5} className={styles.root_grid_items}>
+                        <Typography sx={{ fontSize: 20 }}>
+                            {roots[r].meanings}{" "}
+                        </Typography>
+                    </Grid>
+                    <Grid item md={1}>
+                        {/* Note that we're passing in roots[r].sentence in a list */}
+                        <CopySentences
+                            roots={[roots[r]]}
+                        ></CopySentences>
+                    </Grid>
                 </Grid>
-                <Grid item xs={1} className={styles.root_grid_items}>
-                    <Typography className={styles.stuff} sx={{ fontSize: 25 }}>
-                        {roots[r].rootword}{" "}
-                    </Typography>
-                </Grid>
-                <Grid item xs={6} className={styles.root_grid_items}>
-                    <Typography sx={{ fontSize: 20 }}>
-                        {roots[r].meanings}{" "}
-                    </Typography>
-                </Grid>
-            </Grid>
+            </div>
         );
         b[`box_${r}`] = { boxes };
     }
@@ -59,8 +67,14 @@ export default function RootWordsDisplay(props) {
                         <Grid item xs={1} className={styles.root_grid_items}>
                             <Typography variant="outline">Root</Typography>
                         </Grid>
-                        <Grid item xs={6} className={styles.root_grid_items}>
+                        <Grid item xs={5} className={styles.root_grid_items}>
                             <Typography variant="outline">Meanings</Typography>
+                        </Grid>
+                        <Grid item xs={1}>
+                            <CopySentences
+                                copyAll={true}
+                                roots={props.roots}
+                            ></CopySentences>
                         </Grid>
                     </Grid>
                     {box_display}

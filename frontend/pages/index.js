@@ -1,13 +1,11 @@
 import Head from "next/head";
-import { Typography, Grid } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Form from "../components/Form";
-// import { getChapters } from "../mockAPI";
 
 export default function Home() {
-    // let chapters = getChapters();
-    // console.log(chapters)
     return (
         <div>
             <Head>

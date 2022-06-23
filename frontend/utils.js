@@ -27,7 +27,7 @@ export async function apiGET(path) {
 export async function getRoots(setRoots, verse) {
     let v;
     Number.isInteger(verse) ? (v = verse) : (v = verse.index);
-    let roots_res = await apiGET(`/verse/${v}`)
+    let roots_res = await apiGET(`/verse/${v}/sentences`)
         .then((response) => {
             return response;
         })
@@ -37,4 +37,10 @@ export async function getRoots(setRoots, verse) {
     if (roots_res && roots_res.data) {
         setRoots(roots_res.data.data);
     }
+}
+
+export async function copy(text) {
+    // A comment from the source of this code states that we may only be able to do this in https sites:
+    // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    navigator.clipboard.writeText(text);
 }

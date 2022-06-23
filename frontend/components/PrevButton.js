@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Grid, IconButton } from "@mui/material/";
+import Button from "@mui/material/Button";
 import { getRoots } from "../utils";
 
 export default function NextButton(props) {
@@ -23,7 +23,6 @@ export default function NextButton(props) {
                 color="inherit"
                 onClick={getPrevVerse}
             >
-                {/* <IconButton className=" fa-solid fa-angle-left"></IconButton> */}
                 Prev Verse
             </Button>
         </div>

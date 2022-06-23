@@ -129,9 +129,26 @@ async function getVerseRootWords(data) {
         })
     );
 }
+async function getRootsMeaning(data) {
+    var all_roots = await getVerseRootWords(data);
+    let msg = all_roots.error;
+    let root, word, rootmeaning, sentence;
+    if (all_roots.success) {
+        for (let item of all_roots.data) {
+            root = item.rootword;
+            word = item.word;
+            rootmeaning = item.meanings;
+            sentence = `The word ${word} comes from the root ${root} and is associated with the meanings: ${rootmeaning}`;
+            item.sentence = sentence;
+        }
+        msg = `Successfully retreived sentences for each word in verse with id ${data.verse_id}`;
+    }
+    return utils.setResult(all_roots.data, all_roots.success, msg, all_roots.ecode);
+}
 
 module.exports = {
     getChapterVerses,
     getChapters,
     getVerseRootWords,
+    getRootsMeaning,
 };

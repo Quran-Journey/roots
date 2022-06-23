@@ -89,4 +89,10 @@ router.get("/verse/:verse_id", async (request, response) => {
         });
 });
 
+router.get("/verse/:verse_id/sentences", async (request, response) => {
+    await lesson.getRootsMeaning(request.params).then(async function (result) {
+        return utils.simpleResponse(result, response);
+    });
+});
+
 module.exports = router;
