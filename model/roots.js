@@ -75,6 +75,26 @@ async function getChapterVerses(data) {
     return verses;
 }
 
+async function getVerse(data) {
+    var invalid = utils.simpleValidation(data, {
+        verse_id: "integer",
+    });
+    if (invalid) {
+        return invalid;
+    }
+    let sql = "SELECT * FROM quran_text WHERE aya=$1";
+    var params = [data.verse_id];
+    let verse = await utils.retrieve(
+        sql,
+        params,
+        new utils.Message({
+            success: `Successfully fetched verse with id ${data.verse_id}.`,
+        })
+    );
+    verse.data = verse.data[0];
+    return verse;
+}
+
 /**
  *  @schema RootWord
  *  type: object
@@ -121,15 +141,24 @@ async function getVerseRootWords(data) {
     let sql =
         "SELECT * FROM (SELECT * FROM (SELECT indexID, aw.wordID, word, rootid FROM TextToWord as ttw JOIN ArabicWord as aw on aw.WordID=ttw.WordID WHERE indexID=$1) as taw JOIN RootWord as rt ON rt.RootID=taw.rootID) rtw JOIN rootmeaning rm ON rm.rootword=rtw.rootword;";
     var params = [data.verse_id];
-    return await utils.retrieve(
+    let roots = await utils.retrieve(
         sql,
         params,
         new utils.Message({
             success: `Successfully fetched roots for verse with id ${data.verse_id}.`,
         })
     );
+    // We then want to sort the words by verse
+    let verseRes = await getVerse(data);
+    let wordArray = verseRes.data.text.split(" ");
+
+    // Note that indexOf returns -1 when the word is not found
+    roots.data.sort((a, b) =>
+        wordArray.indexOf(a.word) > wordArray.indexOf(b.word) ? 1 : -1
+    );
+    return roots;
 }
-async function getRootsMeaning(data) {
+async function getRootMeanings(data) {
     var all_roots = await getVerseRootWords(data);
     let msg = all_roots.error;
     let root, word, rootmeaning, sentence;
@@ -143,12 +172,17 @@ async function getRootsMeaning(data) {
         }
         msg = `Successfully retreived sentences for each word in verse with id ${data.verse_id}`;
     }
-    return utils.setResult(all_roots.data, all_roots.success, msg, all_roots.ecode);
+    return utils.setResult(
+        all_roots.data,
+        all_roots.success,
+        msg,
+        all_roots.ecode
+    );
 }
 
 module.exports = {
     getChapterVerses,
     getChapters,
     getVerseRootWords,
-    getRootsMeaning,
+    getRootMeanings,
 };
