@@ -28,13 +28,13 @@ app.route("/").get((req, res) => {
 if (process.env.NODE_ENV == "production") {
   // This sets the options for https so that it finds the ssl certificates
   var privateKey = fs.readFileSync(
-    "/etc/letsencrypt/live/offlinequran.com/privkey.pem"
+    "/etc/letsencrypt/live/offlinequran.com-0002/privkey.pem"
   );
   var certificate = fs.readFileSync(
-    "/etc/letsencrypt/live/offlinequran.com/cert.pem"
+    "/etc/letsencrypt/live/offlinequran.com-0002/cert.pem"
   )
   var chain = fs.readFileSync(
-    "/etc/letsencrypt/live/offlinequran.com/fullchain.pem"
+    "/etc/letsencrypt/live/offlinequran.com-0002/fullchain.pem"
   );
   const httpsOptions = {
     cert: certificate,
