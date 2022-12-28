@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_PASSWORD: Yatathakar123!
       POSTGRES_USER: qj
-      POSTGRES_DB: quranJourney
+      POSTGRES_DB: qj_roots
       PGDATA: pgdata
     volumes:
       - ./pgdata:/var/lib/postgresql/qj:z
