@@ -4,6 +4,13 @@
 
 Roots is a microservice that provides the root of each Arabic word along with their meanings from the Quran. The MVP of this service will have a frontend view and an API service that can be used with other applications.
 
+## Development
+
+To run this solution in development, you will need to have docker, node, and next.js installed. This is primarily to run the database, the backend, and the frontend separately.
+
+Run the database: `cd db; docker-compose up --build -d`
+Run the backend: `npm run start` --> I recommend utilizing nodemon in development
+Run the frontend: `npm run dev`
 
 ## High-Level Architecture 
 
