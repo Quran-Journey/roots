@@ -12,6 +12,12 @@ Run the database: `cd db; docker-compose up --build -d`
 Run the backend: `npm run start` --> I recommend utilizing nodemon in development
 Run the frontend: `npm run dev`
 
+### Running the Lexicon Scrapper
+Go to the model folder: `cd model`
+Ensure you have the `root_meanings.json` file. If not, run `node scrape.js`.
+Run `node scrape_lexicon.js`. This will take a while.
+
+
 ## High-Level Architecture 
 
 Below is the high-level architecture diagram. The process begins by scraping root words from resourceful websites and designated Excel sheets. We parse and organize that content then store it in our database so that Node can retrieve that data. Node then communicates information from the database to Next.js so that it's interactively displayed on the frontend. 
